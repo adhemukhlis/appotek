@@ -10,15 +10,15 @@ class Login extends Component {
 		console.log( response.profileObj );
 		firebaseRef_setUSER( response.profileObj.googleId ).once('value', snapshot => {
 			if (snapshot.exists( )) {
-				console.log( 'exists' );
+				console.log( snapshot.val().role );
 				this
 					.props
-					.userAuth( )
+					.userAuth(snapshot.val().role )
 			} else {
 				firebaseRef_setUSER( response.profileObj.googleId ).set({
 					...response.profileObj,
-					role:'0',
-					nik:'0'
+					role: '0',
+					nik: '0'
 				})
 			}
 		})

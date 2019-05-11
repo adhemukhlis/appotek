@@ -1,4 +1,3 @@
-const date = new Date( );
 export const UANG = ( uang ) => {
 	return "Rp" + Number( uang )
 		.toFixed( 0 )

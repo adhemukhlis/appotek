@@ -8,7 +8,8 @@ import {
 	Modal,
 	Input,
 	Divider,
-	Dropdown
+	Dropdown,
+	Popup
 } from 'semantic-ui-react';
 import { firebaseRef_USER } from "../../../firebase/firebaseRef";
 import { UserRole } from "../../config";
@@ -50,11 +51,11 @@ class Operasional extends Component {
 		firebaseRef_USER
 			.child( this.state.googleId )
 			.remove( );
-		this.setState({ open: false })
+		this.close( )
 	}
 	handleConfirm = ( ) => {
 		this.update( );
-		this.setState({ open: false })
+		this.close( )
 	}
 	handleConfirmDeleteChange = (e, { value }) => {
 		this.setState({ confirm: value });
@@ -110,19 +111,21 @@ class Operasional extends Component {
 				marginBottom: '100px'
 			}}>
 				<Modal size='tiny' open={this.state.open} onClose={this.close}>
-					<Modal.Header>{'UPDATE : ' + this.state.name}</Modal.Header>
+					<Modal.Header>{'EDIT : ' + this.state.name}</Modal.Header>
 					<Modal.Content>{formBtn}</Modal.Content>
 					<Modal.Actions>
-						<Input type='text' placeholder='type email to confirm' action error={this.state.confirm === this.state.email
-							? false
-							: true} onChange={this.handleConfirmDeleteChange}>
-							<input/>
-							<Button type='submit' onClick={this.delete} disabled={this.state.confirm === this.state.email
+						<Popup trigger={(
+							<Input type='text' placeholder='type email to confirm' action error={this.state.confirm === this.state.email
 								? false
-								: true}>Delete</Button>
-						</Input>
+								: true} onChange={this.handleConfirmDeleteChange}>
+								<input/>
+								<Button negative type='submit' onClick={this.delete} disabled={this.state.confirm === this.state.email
+									? false
+									: true}>Delete</Button>
+							</Input>
+						)} content='PERINGATAN : setelah klik tombol delete, data yang telah terhapus tidak akan pernah bisa kembali! ketikan email untuk melanjutkan proses delete..' inverted/>
 						<Divider/>
-						<Button negative onClick={this.handleCancel}>Cancel</Button>
+						<Button basic negative onClick={this.close}>Cancel</Button>
 						<Button positive onClick={this.handleConfirm}>Save</Button>
 					</Modal.Actions>
 				</Modal>
@@ -140,7 +143,7 @@ class Operasional extends Component {
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>{users.map(user => (
-							<Table.Row error={user.role !== UserRole[0] && UserRole[1] && UserRole[2]}>
+							<Table.Row error={user.role !== UserRole[0] && user.role !== UserRole[1] && user.role !== UserRole[2]}>
 								<Table.Cell>{user.email}</Table.Cell>
 								<Table.Cell>{user.nik !== '0'
 										? user.nik

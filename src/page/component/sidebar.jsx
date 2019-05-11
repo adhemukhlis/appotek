@@ -11,7 +11,7 @@ import {
 	Ic_s_user,
 	Ic_s_users_cog
 } from './react-icon-svg';
-import { white, SideBarIconSize } from "../style";
+import { white, SideBarIconSize,ContentMenu } from "../style";
 import { UserRole } from '../config';
 class SideBar extends Component {
 	state = {
@@ -25,7 +25,7 @@ class SideBar extends Component {
 	handleSidebarHide = ( ) => this.setState({ visible: false });
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 	render( ) {
-		const {user} = this.props
+		const { user } = this.props;
 		const { visible } = this.state;
 		return (
 			<div>
@@ -57,23 +57,26 @@ class SideBar extends Component {
 						<Menu.Item href='/#/presensi'>
 							<Ic_s_id_card height={SideBarIconSize} fill={white}/>
 							<p>Karyawan</p>
-						</Menu.Item>
-						{user===UserRole[0]?(<Menu.Item href='/#/control'>
-							<Ic_s_users_cog height={SideBarIconSize} fill={white}/>
-							<p>Control</p>
-						</Menu.Item>):null}
-						
-					</Sidebar>
+						</Menu.Item>{user === UserRole[0]
+							? (
+								<Menu.Item href='/#/control'>
+									<Ic_s_users_cog height={SideBarIconSize} fill={white}/>
+									<p>Control</p>
+								</Menu.Item>
+							)
+							: null}</Sidebar>
 					<Sidebar.Pusher dimmed={false}>
-						<div style={{
-							minHeight: '100vh',
-							paddingBottom: '10vh'
-						}}>
-							<div onClick={this.handleShowClick}>
-								<FloatButton active={this.state.visible} sizeIcon={8}/>
-							</div>
+						<div style={user !== null?ContentMenu:null}>{user !== null
+								? (
+									<div onClick={this.handleShowClick}>
+										<FloatButton active={this.state.visible} sizeIcon={8}/>
+									</div>
+								)
+								: null}
 							<Grid centered>
-								<Grid.Column width={12}>{this.props.children}</Grid.Column>
+								<Grid.Column width={user !== null
+									? 12
+									: null}>{this.props.children}</Grid.Column>
 							</Grid>
 						</div>
 					</Sidebar.Pusher>

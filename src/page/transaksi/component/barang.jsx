@@ -8,14 +8,14 @@ class Barang extends Component {
 	plusFunc = ( ) => {
 		if ( this.state.jumlahBeli < this.props.barang.stok ) {
 			this.setState({
-				jumlahBeli: this.state.jumlahBeli += 1
+				jumlahBeli: this.state.jumlahBeli + 1
 			})
 		}
 	}
 	minFunc = ( ) => {
 		if ( this.state.jumlahBeli > 1 ) {
 		this.setState({
-			jumlahBeli: this.state.jumlahBeli -= 1
+			jumlahBeli: this.state.jumlahBeli - 1
 		})}
 	}
 	addToChart = () => {

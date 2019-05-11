@@ -1,8 +1,8 @@
 export const white = '#fff';
-export const SideBarIconSize = '5vh'
+export const SideBarIconSize = '5vh';
 export const LoginStyle = {
 	backgroundColor: '#eee',
-	height: '100vh',
+	height: '99.5vh',
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center',
@@ -18,8 +18,12 @@ export const TransaksiStyle = {
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center'
-}
+};
 export const TransaksiSearchBar = {
 	marginBottom: '20px',
 	marginTop: '100px'
-}
+};
+export const ContentMenu = {
+	minHeight: '100vh',
+	paddingBottom: '10vh'
+};

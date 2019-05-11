@@ -19,41 +19,18 @@ class App extends Component {
 		console.log( role )
 	};
 	render( ) {
-		const PATH = [ < Route path = "/pengeluaran" component = {
-				( ) =>< Pengeluaran legalAccess = {
-					this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]
-				} />
-			} />, < Route path = "/presensi" component = {
-				( ) =>< Presensi legalAccess = {
-					this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]
-				} />
-			} />, < Route path = "/operasional" component = {
-				( ) =>< Operasional legalAccess = {
-					this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]
-				} />
-			} />, < Route path = "/control" component = {
-				( ) =>< ControlPanel legalAccess = {
-					this.state.loggedAs === UserRole[0]
-				} />
-			} />, < Route path = "/barang" component = {
-				( ) =>< DataBarang legalAccess = {
-					this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]
-				} />
-			} />, < Route path = "/pemasukan" component = {
-				( ) =>< Pemasukan legalAccess = {
-					this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]
-				} />
-			} />
-		];
 		return (
-			<div>
+			<SideBar user={this.state.loggedAs}>
 				<Route path="/" exact component= { ( ) =>< Login userAuth={this.userAuth} loggedAs={this.state.loggedAs}/>}/>
 				<Route path="/transaksi" component= { ( ) =>< Transaksi legalAccess={this.state.loggedAs===UserRole[2]} />}/>
-				{this.state.loggedAs !== UserRole[2] 
-					? (
-						<SideBar user={this.state.loggedAs}>{PATH}</SideBar>
-					)
-					: PATH}</div>
+				<Route path="/pengeluaran" component= { ( ) =>< Pengeluaran legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]} />}/>
+				<Route path="/presensi" component= { ( ) =>< Presensi legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+				<Route path="/operasional" component= { ( ) =>< Operasional legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+				<Route path="/operasional" component= { ( ) =>< Operasional legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+				<Route path="/control" component= { ( ) =>< ControlPanel legalAccess = { this.state.loggedAs === UserRole[0] } /> }/>
+				<Route path="/barang" component= { ( ) =>< DataBarang legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+				<Route path="/pemasukan" component= { ( ) =>< Pemasukan legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+			</SideBar>
 		)
 	}
 }

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import "semantic-ui-css/semantic.css";
 import Route from "./route/route";
-import Auth from "./route/auth";
 import './index.css';
 
 ReactDOM.render(<Route />, document.getElementById('root'));

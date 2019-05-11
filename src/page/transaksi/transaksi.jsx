@@ -51,7 +51,7 @@ class Transaksi extends Component {
 	inputTunai = (e, { value }) => this.setState({ tunai: value });
 	shortHand = ( Value ) => {
 		this.setState({
-			tunai: this.state.tunai += Value
+			tunai: this.state.tunai + Value
 		});
 		console.log( Value )
 	}
