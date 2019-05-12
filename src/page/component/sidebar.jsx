@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Sidebar, Menu, Segment, Grid, Label } from 'semantic-ui-react';
+import {
+	Sidebar,
+	Menu,
+	Segment,
+	Grid,
+	Label,
+	Popup,
+	Button
+} from 'semantic-ui-react';
 import FloatButton from "./float_menu";
 import {
 	Ic_s_arrow_alt_from_left,
@@ -11,7 +19,7 @@ import {
 	Ic_s_user,
 	Ic_s_users_cog
 } from './react-icon-svg';
-import { white, SideBarIconSize,ContentMenu } from "../style";
+import { white, SideBarIconSize, ContentMenu } from "../style";
 import { UserRole } from '../config';
 class SideBar extends Component {
 	state = {
@@ -31,15 +39,19 @@ class SideBar extends Component {
 			<div>
 				<Sidebar.Pushable as={Segment}>
 					<Sidebar as={Menu} animation='uncover' icon='labeled' inverted vertical visible={visible} width='thin'>
-						<Menu.Item href='/#/'>{user === UserRole[0]
+						<Menu.Item href='/#/'>{user.role === UserRole[0]
 								? <Ic_s_user_crown height={SideBarIconSize} fill={white}/>
-								: user === UserRole[1]
+								: user.role === UserRole[1]
 									? <Ic_s_user_cog height={SideBarIconSize} fill={white}/>
 									: <Ic_s_user height={SideBarIconSize} fill={white}/>}
 							<div style={{
 								marginTop: '10px'
 							}}>
-								<Label color='blue'>{user}</Label>
+								<Label color='blue'>{user.role === 'ow'
+										? 'Owner'
+										: user.role === 'kc'
+											? 'KC'
+											: null}</Label>
 							</div>
 						</Menu.Item>
 						<Menu.Item href='/#/pemasukan'>
@@ -57,7 +69,7 @@ class SideBar extends Component {
 						<Menu.Item href='/#/presensi'>
 							<Ic_s_id_card height={SideBarIconSize} fill={white}/>
 							<p>Karyawan</p>
-						</Menu.Item>{user === UserRole[0]
+						</Menu.Item>{user.role === UserRole[0]
 							? (
 								<Menu.Item href='/#/control'>
 									<Ic_s_users_cog height={SideBarIconSize} fill={white}/>
@@ -66,15 +78,42 @@ class SideBar extends Component {
 							)
 							: null}</Sidebar>
 					<Sidebar.Pusher dimmed={false}>
-						<div style={user !== null?ContentMenu:null}>{user !== null
+						<div style={user.role !== null
+							? ContentMenu
+							: null}>{user.role !== null
 								? (
-									<div onClick={this.handleShowClick}>
-										<FloatButton active={this.state.visible} sizeIcon={8}/>
+									<div>{user.role !== UserRole[2]
+											? (
+												<div style={{
+													position: 'absolute',
+													display: 'inline-block',
+													left: '0px'
+												}} onClick={this.handleShowClick}>
+													<FloatButton active={this.state.visible} sizeIcon={8}/>
+												</div>
+											)
+											: null}
+										<div style={{
+											padding: '1vh',
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'center'
+										}}>
+											<Popup trigger={(
+												<Label as='a' size='big' color='blue' image>
+													<img src={user.imageUrl}/>{user.name}
+													<Label.Detail>{user.role}</Label.Detail>
+												</Label>
+											)} content={( < Button onClick = {
+												this.props.logout
+											}
+											color = 'green' content = 'Logout' /> )} on='click' position='bottom center'/>
+										</div>
 									</div>
 								)
 								: null}
 							<Grid centered>
-								<Grid.Column width={user !== null
+								<Grid.Column width={user.role !== null
 									? 12
 									: null}>{this.props.children}</Grid.Column>
 							</Grid>

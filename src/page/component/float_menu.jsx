@@ -7,7 +7,7 @@ const SvgComponent = props => (
 		width: props.sizeIcon + 'vh',
 		height: props.sizeIcon + 'vh',
 		backgroundColor: '#1b1c1d',
-		margin:'1vh'
+		margin: '1vh'
 	}}>
 		<div style={{
 			position: 'absolute',

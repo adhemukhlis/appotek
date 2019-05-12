@@ -6,7 +6,7 @@ import { Segment, Grid, Header, Icon, Label } from 'semantic-ui-react';
 import { UANG, SUM } from "../component/func_lib";
 class Pemasukan extends Component {
 	render( ) {
-		const {  legalAccess } = this.props;
+		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}

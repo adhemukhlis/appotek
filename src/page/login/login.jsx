@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
+import "./login.css";
 import { OFFLINE_MODE, USER_ROLE, UserRole } from "../config";
 import { firebaseRef_setUSER } from "../../firebase/firebaseRef";
 import { GoogleLogin } from 'react-google-login';
@@ -7,13 +8,12 @@ import { LoginStyle, LoginTitle } from "../style";
 import { Button } from 'semantic-ui-react';
 class Login extends Component {
 	responseGoogle = ( response ) => {
-		console.log( response.profileObj );
 		firebaseRef_setUSER( response.profileObj.googleId ).once('value', snapshot => {
 			if (snapshot.exists( )) {
-				console.log( snapshot.val().role );
+				const data = snapshot.val( );
 				this
 					.props
-					.userAuth(snapshot.val().role )
+					.userAuth({ role: data.role, name: data.name, imageUrl: data.imageUrl })
 			} else {
 				firebaseRef_setUSER( response.profileObj.googleId ).set({
 					...response.profileObj,
@@ -35,18 +35,20 @@ class Login extends Component {
 			return <Redirect push to='/transaksi'/>
 		}
 		return (
-			<div style={LoginStyle}>
-				<h1 style={LoginTitle}>APPOTEK</h1>{OFFLINE_MODE
-					? (
-						<Button basic onClick={( ) => this.props.userAuth( USER_ROLE )}>
-							Login Dev
-						</Button>
-					)
-					: (
-						<GoogleLogin clientId="759340461501-u4bk7hcjlqnke6nfqg4gp404lhdsd7bm.apps.googleusercontent.com" onSuccess={this.responseGoogle} onFailure={this.errorLogin}>
-							<b>Login with Google</b>
-						</GoogleLogin>
-					)}</div>
+			<div id="entry-page" style={LoginStyle}>
+				<div id='panel'>
+					<h1 style={LoginTitle}>APPOTEK</h1>{OFFLINE_MODE
+						? (
+							<Button basic onClick={( ) => this.props.userAuth( USER_ROLE )}>
+								Login Dev
+							</Button>
+						)
+						: (
+							<GoogleLogin theme='dark' clientId="759340461501-u4bk7hcjlqnke6nfqg4gp404lhdsd7bm.apps.googleusercontent.com" onSuccess={this.responseGoogle} onFailure={this.errorLogin}>
+								<b>Login with Google</b>
+							</GoogleLogin>
+						)}</div>
+			</div>
 		)
 	}
 }

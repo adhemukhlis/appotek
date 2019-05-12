@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import "semantic-ui-css/semantic.css";
-import Route from "./route/route";
 import './index.css';
+import "semantic-ui-css/semantic.min.css";
+import Route from "./route/route";
+
 
 ReactDOM.render(<Route />, document.getElementById('root'));
 

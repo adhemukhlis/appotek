@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2';
 import { data, option } from "./component/config";
 class Presensi extends Component {
 	render( ) {
-		const {  legalAccess } = this.props;
+		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}

@@ -1,7 +1,6 @@
 export const white = '#fff';
 export const SideBarIconSize = '5vh';
 export const LoginStyle = {
-	backgroundColor: '#eee',
 	height: '99.5vh',
 	display: 'flex',
 	flexDirection: 'column',
@@ -11,7 +10,8 @@ export const LoginStyle = {
 export const LoginTitle = {
 	fontFamily: 'Lily Script One, cursive',
 	textTransform: 'lowercase',
-	fontSize: '10vh',
+	fontSize: '14vh',
+	paddingBottom: '14vh',
 	color: '#99d45d'
 };
 export const TransaksiStyle = {

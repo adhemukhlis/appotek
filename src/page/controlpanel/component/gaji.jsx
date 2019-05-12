@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-	Form,
-	Header,
-	Button,
-	Table,
-	Icon
-} from 'semantic-ui-react';
-import {UANG} from "../../component/func_lib";
+import { Form, Header, Button, Table, Icon } from 'semantic-ui-react';
+import { UANG } from "../../component/func_lib";
 class Operasional extends Component {
 	render( ) {
 		return (
@@ -29,7 +23,7 @@ class Operasional extends Component {
 						<Table.Row>
 							<Table.Cell>Owner</Table.Cell>
 							<Table.Cell>General</Table.Cell>
-							<Table.Cell>{UANG(0)}</Table.Cell>
+							<Table.Cell>{UANG( 0 )}</Table.Cell>
 							<Table.Cell collapsing>
 								<Button icon>
 									<Icon name='edit outline'/>
@@ -42,7 +36,7 @@ class Operasional extends Component {
 						<Table.Row>
 							<Table.Cell>Kepala Cabang</Table.Cell>
 							<Table.Cell>Purwokerto</Table.Cell>
-							<Table.Cell>{UANG(5000000)}</Table.Cell>
+							<Table.Cell>{UANG( 5000000 )}</Table.Cell>
 							<Table.Cell collapsing>
 								<Button icon>
 									<Icon name='edit outline'/>
@@ -55,8 +49,7 @@ class Operasional extends Component {
 						<Table.Row>
 							<Table.Cell>Kepala Cabang</Table.Cell>
 							<Table.Cell>Jakarta</Table.Cell>
-							<Table.Cell>{UANG(7000000)}</Table.Cell>
-				
+							<Table.Cell>{UANG( 7000000 )}</Table.Cell>
 							<Table.Cell collapsing>
 								<Button icon>
 									<Icon name='edit outline'/>
@@ -66,11 +59,10 @@ class Operasional extends Component {
 								</Button>
 							</Table.Cell>
 						</Table.Row>
-                                                <Table.Row>
+						<Table.Row>
 							<Table.Cell>Karyawan</Table.Cell>
 							<Table.Cell>Jakarta</Table.Cell>
-							<Table.Cell>{UANG(4000000)}</Table.Cell>
-				
+							<Table.Cell>{UANG( 4000000 )}</Table.Cell>
 							<Table.Cell collapsing>
 								<Button icon>
 									<Icon name='edit outline'/>
@@ -80,11 +72,10 @@ class Operasional extends Component {
 								</Button>
 							</Table.Cell>
 						</Table.Row>
-                                                <Table.Row>
+						<Table.Row>
 							<Table.Cell>Karyawan</Table.Cell>
 							<Table.Cell>Purwokerto</Table.Cell>
-							<Table.Cell>{UANG(3500000)}</Table.Cell>
-				
+							<Table.Cell>{UANG( 3500000 )}</Table.Cell>
 							<Table.Cell collapsing>
 								<Button icon>
 									<Icon name='edit outline'/>
@@ -94,7 +85,6 @@ class Operasional extends Component {
 								</Button>
 							</Table.Cell>
 						</Table.Row>
-						
 					</Table.Body>
 				</Table>
 				<Form>
@@ -106,9 +96,9 @@ class Operasional extends Component {
 						<label>Cabang</label>
 						<input placeholder='Cabang'/>
 					</Form.Field>
-                                        <Form.Field>
+					<Form.Field>
 						<label>Gaji</label>
-						<input placeholder='Gaji' />
+						<input placeholder='Gaji'/>
 					</Form.Field>
 					<Button type='submit'>Save</Button>
 				</Form>

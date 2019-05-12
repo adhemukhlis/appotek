@@ -5,7 +5,7 @@ import Akun from "./component/akun";
 import Gaji from "./component/gaji";
 class Pengeluaran extends Component {
 	render( ) {
-		const {  legalAccess } = this.props;
+		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}

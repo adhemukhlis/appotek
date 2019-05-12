@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { barang } from "../transaksi/component/data_barang";
 class DataBarang extends Component {
 	render( ) {
-		const {  legalAccess } = this.props;
+		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}

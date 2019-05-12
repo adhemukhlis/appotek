@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import {
-	Tab,
-	Header
-} from 'semantic-ui-react';
+import { Tab, Header } from 'semantic-ui-react';
 import Operasional from "./operasional";
 import StokBarang from "./stock_barang";
 class Pengeluaran extends Component {
