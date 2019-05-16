@@ -132,7 +132,7 @@ class Transaksi extends Component {
 													<Table.Cell textAlign='right'>{UANG(this.state.pembelian.total[i])}</Table.Cell>
 												</Table.Row>
 											))}
-										< Table.Row >
+										<Table.Row >
 											<Table.Cell active>Total Bayar</Table.Cell>
 											<Table.Cell textAlign='right' active colSpan='3'>{UANG(SUM( this.state.pembelian.total ))}</Table.Cell>
 										</Table.Row>
@@ -149,7 +149,7 @@ class Transaksi extends Component {
 							</Modal.Description>
 						</Modal.Content>
 						<Modal.Actions>
-							<Button primary onClick={()=>this.payproc()}>
+							<Button primary onClick={( ) => this.payproc( )}>
 								Proceed
 								<Icon name='chevron right'/>
 							</Button>

@@ -10,6 +10,7 @@ const fakeAuth = {
 		this.isAuthenticated = false;
 		setTimeout( cb, 100 )
 	}
+	
 };
 function AuthExample( ) {
 	return (

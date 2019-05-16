@@ -37,9 +37,15 @@ class Operasional extends Component {
 		})
 	}
 	update = ( ) => {
+		const content = {
+			email: this.state.email,
+			nik: this.state.nik,
+			name: this.state.name,
+			role: this.state.role
+		};
 		firebaseRef_USER
 			.child( this.state.googleId )
-			.update({ email: this.state.email, nik: this.state.nik, name: this.state.name, role: this.state.role })
+			.update( content )
 			.then(( ) => {
 				console.log( "Data saved successfully." )
 			})
@@ -149,7 +155,7 @@ class Operasional extends Component {
 										? user.nik
 										: 'Illegal'}</Table.Cell>
 								<Table.Cell>{user.name}</Table.Cell>
-								<Table.Cell textAlign='center'>{user.role === UserRole[0]
+								<Table.Cell >{user.role === UserRole[0]
 										? 'Owner'
 										: user.role === UserRole[1]
 											? 'Kepala Cabang'
