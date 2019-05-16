@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lily+Script+One');
+
 body {
   margin: 0;
   padding: 0;
@@ -11,9 +11,3 @@ body {
 
 }
 
-.title{
-  font-family: 'Lily Script One', cursive;
-  text-transform: lowercase;
-  font-size: 10vh;
-  color: #99d45d;
-}

@@ -16,7 +16,7 @@
 		bottom: 0;
 		width: 20px;
 		height: 20px;
-		background: #99d45d;
+		background: #555;
 		&:nth-child(1) {
 			animation: preload-2-1 1.5s infinite ease-in-out;
 		}
@@ -43,7 +43,7 @@
 	50% {
 		transform: translateX(-20px) translateY(-10px) rotate(-180deg);
 		border-radius: 50%;
-		background: #3498db;
+		background: #6c42b1;
 	}
 	80% {
 		transform: translateX(0) translateY(0) rotate(-360deg);
@@ -62,7 +62,7 @@
 	50% {
 		transform: translateX(20px) translateY(-10px) rotate(180deg);
 		border-radius: 50%;
-		background: #f1c40f;
+		background: #ffeb4f;
 	}
 	80% {
 		transform: translateX(0) translateY(0) rotate(360deg);
@@ -81,7 +81,7 @@
 	50% {
 		transform: translateX(-20px) translateY(10px) rotate(-180deg);
 		border-radius: 50%;
-		background: #2ecc71;
+		background: #39b774;
 	}
 	80% {
 		transform: translateX(0) translateY(0) rotate(-360deg);
@@ -100,7 +100,7 @@
 	50% {
 		transform: translateX(20px) translateY(10px) rotate(180deg);
 		border-radius: 50%;
-		background: #e74c3c;
+		background: #ff774f;
 	}
 	80% {
 		transform: translateX(0) translateY(0) rotate(360deg);

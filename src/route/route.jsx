@@ -9,7 +9,7 @@ class App extends Component {
 	componentDidMount( ) {
 		setTimeout( ( ) => {
 			this.setState({ loaded: true })
-		}, 2000 )
+		}, 3000 )
 	}
 	render( ) {
 		const { loaded } = this.state;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import "./login.css";
 import { OFFLINE_MODE, USER_ROLE, UserRole } from "../config";
+import { BrandLogo, TextLogo } from "../component/logo";
 import { firebaseRef_setUSER } from "../../firebase/firebaseRef";
 import { GoogleLogin } from 'react-google-login';
 import { LoginStyle, LoginTitle } from "../style";
@@ -36,8 +37,8 @@ class Login extends Component {
 		}
 		return (
 			<div id="entry-page" style={LoginStyle}>
-				<div id='panel'>
-					<h1 style={LoginTitle}>APPOTEK</h1>{OFFLINE_MODE
+				<div id='panel'><BrandLogo width="20vh"/>
+					<div style={LoginTitle}><TextLogo width="30vh"/></div>{OFFLINE_MODE
 						? (
 							<Button basic onClick={( ) => this.props.userAuth( USER_ROLE )}>
 								Login Dev

@@ -5,7 +5,7 @@ div #entry-page {
 	grid-gap: 10px;
 	width: 100%;
 	height: 100vh;
-	background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+	background: linear-gradient(-45deg, #3e0d8f, #009444, #33a969, #d1ba00);
 	background-size: 400% 400%;
 	animation: Gradient 15s ease infinite;
 	box-sizing: border-box;

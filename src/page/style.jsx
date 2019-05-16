@@ -8,11 +8,7 @@ export const LoginStyle = {
 	justifyContent: 'space-evenly'
 };
 export const LoginTitle = {
-	fontFamily: 'Lily Script One, cursive',
-	textTransform: 'lowercase',
-	fontSize: '14vh',
-	paddingBottom: '14vh',
-	color: '#99d45d'
+	padding: '10vh'
 };
 export const TransaksiStyle = {
 	display: 'flex',
