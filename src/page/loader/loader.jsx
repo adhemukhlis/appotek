@@ -3,8 +3,8 @@ import "./loader.scss";
 class Loader extends Component {
 	render( ) {
 		return (
-			<div class="contain">
-				<div class="preload-2">
+			<div className="contain">
+				<div className="preload-2">
 					<span></span>
 					<span></span>
 					<span></span>

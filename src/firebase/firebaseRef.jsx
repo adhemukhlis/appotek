@@ -13,4 +13,5 @@ export const rootRef = firebase
 	.ref( );
 export const firebaseRef_USER = rootRef.child( 'user' );
 export const firebaseRef_GAJI = rootRef.child( 'gaji' );
+export const firebaseRef_BARANG = rootRef.child( 'barang' );
 export const firebaseRef_setUSER = ( googleid ) => firebaseRef_USER.child( googleid );

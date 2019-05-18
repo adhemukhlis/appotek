@@ -1,5 +1,6 @@
 export const white = '#fff';
 export const SideBarIconSize = '5vh';
+export const StatusBarIconSize = '18px';
 export const LoginStyle = {
 	height: '99.5vh',
 	display: 'flex',
@@ -23,3 +24,20 @@ export const ContentMenu = {
 	minHeight: '100vh',
 	paddingBottom: '10vh'
 };
+export const PanelContainer = {
+	marginBottom: '100px'
+};
+export const PanelHeader = {
+	margin: '20px'
+};
+export const SidebarFloatBTN = {
+	position: 'absolute',
+	display: 'inline-block',
+	left: '0px'
+}
+export const StatusPanel = {
+	padding: '1vh',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center'
+}

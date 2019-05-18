@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import './index.css';
+// import './index.css';
 import "semantic-ui-css/semantic.min.css";
 import Route from "./route/route";
 

@@ -16,22 +16,32 @@ import {
 	Ic_s_id_card,
 	Ic_s_user_crown,
 	Ic_s_user_cog,
-	Ic_s_user,
-	Ic_s_users_cog
+	Ic_s_users_cog,
+	Ic_s_user
 } from './react-icon-svg';
-import { white, SideBarIconSize, ContentMenu } from "../style";
-import { UserRole } from '../config';
+import {
+	white,
+	SideBarIconSize,
+	StatusBarIconSize,
+	ContentMenu,
+	SidebarFloatBTN,
+	StatusPanel
+} from "../style";
+import { UserRole, Path } from '../config';
 class SideBar extends Component {
 	state = {
-		activeItem: 'pemasukan',
 		visible: false
 	};
 	handleHideClick = ( ) => this.setState({ visible: false });
+	logout = ( ) => {
+		this
+			.props
+			.logout( );
+		this.handleHideClick( )
+	}
 	handleShowClick = ( ) => this.setState({
 		visible: !this.state.visible
 	});
-	handleSidebarHide = ( ) => this.setState({ visible: false });
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 	render( ) {
 		const { user } = this.props;
 		const { visible } = this.state;
@@ -39,39 +49,24 @@ class SideBar extends Component {
 			<div>
 				<Sidebar.Pushable as={Segment}>
 					<Sidebar as={Menu} animation='uncover' icon='labeled' inverted vertical visible={visible} width='thin'>
-						<Menu.Item href='/#/'>{user.role === UserRole[0]
-								? <Ic_s_user_crown height={SideBarIconSize} fill={white}/>
-								: user.role === UserRole[1]
-									? <Ic_s_user_cog height={SideBarIconSize} fill={white}/>
-									: <Ic_s_user height={SideBarIconSize} fill={white}/>}
-							<div style={{
-								marginTop: '10px'
-							}}>
-								<Label color='blue'>{user.role === 'ow'
-										? 'Owner'
-										: user.role === 'kc'
-											? 'KC'
-											: null}</Label>
-							</div>
-						</Menu.Item>
-						<Menu.Item href='/#/pemasukan'>
+						<Menu.Item href={'/#' + Path.PagePemasukan}>
 							<Ic_s_chart_line height={SideBarIconSize} fill={white}/>
 							<p>Pemasukan</p>
 						</Menu.Item>
-						<Menu.Item href='/#/pengeluaran'>
+						<Menu.Item href={'/#' + Path.PagePengeluaran}>
 							<Ic_s_arrow_alt_from_left height={SideBarIconSize} fill={white}/>
 							<p>Pengeluaran</p>
 						</Menu.Item>
-						<Menu.Item href='/#/barang'>
+						<Menu.Item href={'/#' + Path.PageDataBarang}>
 							<Ic_s_pallet height={SideBarIconSize} fill={white}/>
 							<p>Barang</p>
 						</Menu.Item>
-						<Menu.Item href='/#/presensi'>
+						<Menu.Item href={'/#' + Path.PagePresensi}>
 							<Ic_s_id_card height={SideBarIconSize} fill={white}/>
 							<p>Karyawan</p>
 						</Menu.Item>{user.role === UserRole[0]
 							? (
-								<Menu.Item href='/#/control'>
+								<Menu.Item href={'/#' + Path.PageControlPanel}>
 									<Ic_s_users_cog height={SideBarIconSize} fill={white}/>
 									<p>Control</p>
 								</Menu.Item>
@@ -84,28 +79,29 @@ class SideBar extends Component {
 								? (
 									<div>{user.role !== UserRole[2]
 											? (
-												<div style={{
-													position: 'absolute',
-													display: 'inline-block',
-													left: '0px'
-												}} onClick={this.handleShowClick}>
+												<div style={SidebarFloatBTN} onClick={this.handleShowClick}>
 													<FloatButton active={this.state.visible} sizeIcon={8}/>
 												</div>
 											)
 											: null}
-										<div style={{
-											padding: '1vh',
-											display: 'flex',
-											alignItems: 'center',
-											justifyContent: 'center'
-										}}>
+										<div style={StatusPanel}>
 											<Popup trigger={(
-												<Label as='a' size='big' color='blue' image>
+												<Label as='a' size='big' color={user.role === UserRole[0]
+													? 'blue'
+													: user.role === UserRole[1]
+														? 'red'
+														: user.role === UserRole[2]
+															? 'yellow'
+															: null} image>
 													<img src={user.imageUrl}/>{user.name}
-													<Label.Detail>{user.role}</Label.Detail>
+													<Label.Detail>{user.role === UserRole[0]
+															? <Ic_s_user_crown height={StatusBarIconSize} fill={white}/>
+															: user.role === UserRole[1]
+																? <Ic_s_user_cog height={StatusBarIconSize} fill={white}/>
+																: <Ic_s_user height={StatusBarIconSize} fill={white}/>}</Label.Detail>
 												</Label>
 											)} content={( < Button onClick = {
-												this.props.logout
+												( ) => this.logout( )
 											}
 											color = 'green' content = 'Logout' /> )} on='click' position='bottom center'/>
 										</div>
