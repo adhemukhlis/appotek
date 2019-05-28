@@ -11,14 +11,18 @@ class DataBarangEdit extends Component {
 			_headername,
 			_placeholder,
 			_onSave,
-			_delete,
+                        _delete,
+                        _new_data,
+                        _exist_ID,
+                        _validation,
 			handleInputChange
-		} = this.props;
+                } = this.props;
+                
 		const FormContent = (
                         <Form>
-                        <Form.Field>
+                        <Form.Field error={_exist_ID.length>0&&_new_data}>
                                 <label>kode</label>
-                                <Input readOnly value={_data.id}/>
+                                <Input name='new_id' onChange={handleInputChange} readOnly={!_new_data} value={_data.id} />{console.log(_exist_ID.length)}
                         </Form.Field>
                         <Form.Field>
                                 <label>Nama Barang</label>
@@ -34,7 +38,7 @@ class DataBarangEdit extends Component {
                         </Form.Field>
                 </Form>
 		);
-		return ( <EditPopup _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _validation={_validation} _hidedelete={ _new_data}  _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
 	}
 }
 export default DataBarangEdit;

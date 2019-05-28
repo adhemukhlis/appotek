@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import "./login.css";
-import { OFFLINE_MODE, USER_ROLE, UserRole } from "../config";
+import {  UserRole } from "../config";
 import { BrandLogo, TextLogo } from "../component/logo";
 import { firebaseRef_setUSER } from "../../firebase/firebaseRef";
 import { GoogleLogin } from 'react-google-login';
 import { LoginStyle, LoginTitle } from "../style";
-import { Button } from 'semantic-ui-react';
 class Login extends Component {
 	responseGoogle = ( response ) => {
 		firebaseRef_setUSER( response.profileObj.googleId ).once('value', snapshot => {
@@ -38,17 +37,11 @@ class Login extends Component {
 		return (
 			<div id="entry-page" style={LoginStyle}>
 				<div id='panel'><BrandLogo width="20vh"/>
-					<div style={LoginTitle}><TextLogo width="30vh"/></div>{OFFLINE_MODE
-						? (
-							<Button basic onClick={( ) => this.props.userAuth( USER_ROLE )}>
-								Login Dev
-							</Button>
-						)
-						: (
-							<GoogleLogin theme='dark' clientId="759340461501-u4bk7hcjlqnke6nfqg4gp404lhdsd7bm.apps.googleusercontent.com" onSuccess={this.responseGoogle} onFailure={this.errorLogin}>
-								<b>Login with Google</b>
-							</GoogleLogin>
-						)}</div>
+					<div style={LoginTitle}><TextLogo width="30vh"/></div>
+					<GoogleLogin theme='dark' clientId="759340461501-u4bk7hcjlqnke6nfqg4gp404lhdsd7bm.apps.googleusercontent.com" onSuccess={this.responseGoogle} onFailure={this.errorLogin}>
+						<b>Login with Google</b>
+					</GoogleLogin>
+				</div>
 			</div>
 		)
 	}

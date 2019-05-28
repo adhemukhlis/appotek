@@ -56,7 +56,7 @@ class GajiEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>Gaji</label>
-					<Input placeholder='Label' name='selected_gaji' value={_data.gaji} onChange={handleInputChange}/>
+					<Input placeholder='Gaji' name='selected_gaji' value={_data.gaji} onChange={handleInputChange}/>
 				</Form.Field>
 			</Form>
 		);

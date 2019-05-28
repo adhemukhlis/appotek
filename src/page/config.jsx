@@ -1,5 +1,6 @@
 export const UserRole = [ 'ow', 'kc', 'kw' ];
-export const Cabang = [ 'jkt', 'pwt1', 'pwt2' ];
+export const Cabang = [ 'jkt', 'pwt' ];
+export const CabangFull = [ 'Jakarta', 'Purwokerto' ];
 export const Path = {
 	PageLogin: '/',
 	PageTransaksi: '/transaksi',

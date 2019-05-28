@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Table, Icon, Button } from 'semantic-ui-react';
+import { Table, Icon, Button, Input } from 'semantic-ui-react';
 import { GajiRow } from "./gaji_row";
 class GajiTable extends Component {
 	render( ) {
-		const { _data, _show } = this.props;
+		const { _data, _show,_search,handleInputChange } = this.props;
 		return (
 			<Table celled selectable padded unstackable>
 				<Table.Header>
 					<Table.Row >
 						<Table.HeaderCell colSpan='4'>
+							<Input floated="left" icon='search' placeholder='Search' name='search' value={_search} onChange={handleInputChange}/>
 							<Button floated="right" onClick={( ) => this.props._show( 'new' )} positive>add</Button>
 						</Table.HeaderCell>
 					</Table.Row>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Icon, Input, Button } from 'semantic-ui-react';
-import { DataBarangRow } from "./data_barang_row";
+import { DataBarangRow } from "./data_barang_cabang_row";
 class DataBarangTable extends Component {
 	render( ) {
-		const { _data, _show, handleInputChange, _search } = this.props;
+		const { _data, _show,handleInputChange, _search,  } = this.props;
 		return (
 			<Table celled selectable padded unstackable>
 				<Table.Header>
@@ -16,8 +16,8 @@ class DataBarangTable extends Component {
 					<Table.Row>
 						<Table.HeaderCell collapsing>kode</Table.HeaderCell>
 						<Table.HeaderCell>Nama Barang</Table.HeaderCell>
-						<Table.HeaderCell>Desc</Table.HeaderCell>
-						<Table.HeaderCell>Filename</Table.HeaderCell>
+						<Table.HeaderCell>Stok</Table.HeaderCell>
+						<Table.HeaderCell>Harga</Table.HeaderCell>
 						<Table.HeaderCell collapsing textAlign='center'><Icon name='settings'/></Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {searchArrayTable} from "array-table-search";
 import {
 	Header
 } from 'semantic-ui-react';
@@ -13,7 +14,8 @@ class Operasional extends Component {
 		selected_id: null,
 		selected_jabatan: null,
 		selected_cabang: null,
-		selected_gaji: null
+		selected_gaji: null,
+		search:null
 	};
 	componentWillMount( ) {
 		firebaseRef_GAJI.on('value', snap => {
@@ -69,7 +71,12 @@ class Operasional extends Component {
 		}
 	};
 	render( ) {
-		const { gaji } = this.state;
+		const { gaji,search } = this.state;
+		const searchOptionTable = {
+			type: 'includes',
+			value: search,
+		      };
+		const searchedTableData = searchArrayTable(gaji, searchOptionTable)
 		return (
 			<div style={PanelContainer}>
 				<GajiEdit handleDropDownChange={this.handleDropDown} handleInputChange={this.handleInputChange} _delete={this.delete}_onSave={this.handleConfirm} _placeholder='ID' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_id} _open={this.state.open} _data={{
@@ -79,7 +86,7 @@ class Operasional extends Component {
 					gaji: this.state.selected_gaji
 				}}/>
 				<Header style={PanelHeader} as='h1'>Gaji</Header>
-				<TableGaji _data={gaji} _show={this.show}/>
+				<TableGaji _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>
 			</div>
 		)	
 	}

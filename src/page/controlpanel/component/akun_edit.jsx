@@ -19,16 +19,16 @@ class AkunEdit extends Component {
 		const FormContent = (
 			<Form>
 				<Form.Field>
-					<label>email</label>
+					<label>Email</label>
 					<Input value={_data.email}/>
 				</Form.Field>
 				<Form.Field>
-					<label>nik</label>
-					<Input placeholder='Label' name='nik' value={_data.nik} onChange={handleInputChange}/>
+					<label>NIK</label>
+					<Input placeholder='NIK' name='nik' value={_data.nik} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
-					<label>name</label>
-					<Input placeholder='Label' name='name' value={_data.name} onChange={handleInputChange}/>
+					<label>Name</label>
+					<Input placeholder='Name' name='name' value={_data.name} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
 					<label>role</label>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {searchArrayTable} from "array-table-search";
 import { Header } from 'semantic-ui-react';
 import { firebaseRef_USER } from "../../../firebase/firebaseRef";
 import TableAkun from "./akun_table";
@@ -13,7 +14,8 @@ class Operasional extends Component {
 		nik: null,
 		role: null,
 		googleId: null,
-		confirm: null
+		confirm: null,
+		search:null
 	};
 	componentDidMount( ) {
 		firebaseRef_USER.on('value', snap => {
@@ -66,7 +68,12 @@ class Operasional extends Component {
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
 	handleDropDown = (e, { name, value }) => this.setState({ [ name ]: value });
 	render( ) {
-		const { users } = this.state;
+		const { users, search } = this.state;
+		const searchOptionTable = {
+			type: 'includes',
+			value: search,
+		      };
+		const searchedTableData = searchArrayTable(users, searchOptionTable)
 		return (
 			<div style={PanelContainer}>
 				<AkunEdit handleDropDownChange={this.handleDropDown} handleInputChange={this.handleInputChange} _delete={this.delete}_onSave={this.handleConfirm} _placeholder='email' _close={this.close} _keydelete={this.state.email} _headername={this.state.name} _open={this.state.open} _data={{
@@ -77,7 +84,7 @@ class Operasional extends Component {
 					role: this.state.role
 				}}/>
 				<Header style={PanelHeader} as='h1'>Akun</Header>
-				<TableAkun _data={users} _show={this.show}/>
+				<TableAkun _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>
 			</div>
 		)
 	}
