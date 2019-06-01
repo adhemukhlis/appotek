@@ -4,9 +4,8 @@ export const CabangFull = [ 'Jakarta', 'Purwokerto' ];
 export const Path = {
 	PageLogin: '/',
 	PageTransaksi: '/transaksi',
-	PagePengeluaran: 'pengeluaran',
+	PagePengeluaran: '/pengeluaran',
 	PagePresensi: '/presensi',
-	PageOperasional: '/operasional',
 	PageControlPanel: '/control',
 	PageDataBarang: '/barang',
 	PagePemasukan: '/pemasukan'

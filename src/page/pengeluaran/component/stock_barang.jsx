@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Form, Header } from 'semantic-ui-react';
+import { PanesHeader } from '../../style';
 class StockBarang extends Component {
 	render( ) {
 		return (
 			<div>
-				<Header style={{
-					margin: '20px'
-				}} as='h1'>Pembelian Barang</Header>
+				<Header style={PanesHeader} as='h1'>Pembelian Barang</Header>
 				<Form>
 					<Form.Input fluid label='kode' value='#36' placeholder='Kode Barang'/>
 					<Form.Input fluid label='Nama Barang' value='Bodrex' placeholder='Nama Barang'/>

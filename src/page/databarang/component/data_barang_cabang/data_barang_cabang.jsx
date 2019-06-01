@@ -4,7 +4,7 @@ import { firebaseRef_CABANG_BARANG } from "../../../../firebase/firebaseRef";
 import { Header } from 'semantic-ui-react';
 import DataBarangEdit from "./data_barang_cabang_edit";
 import TableDataBarang from "./data_barang_cabang_table";
-import { PanelContainer, PanelHeader } from '../../../style';
+import { PanelContainer, PanesHeader } from '../../../style';
 class DataBarangCabang extends Component {
 	state = {
 		barang: [],
@@ -12,7 +12,6 @@ class DataBarangCabang extends Component {
 		selected_nama_barang: null,
 		selected_desc: null,
 		selected_img: null,
-		confirm: null,
 		search: null,
 		new_data: null
 	};
@@ -96,7 +95,7 @@ class DataBarangCabang extends Component {
 					stok: this.state.selected_stok,
 					harga: this.state.selected_harga
 				}}/>
-				<Header style={PanelHeader} as='h1'>{'Data Stok Barang Cabang ' + nama_cabang}</Header>
+				<Header style={PanesHeader} as='h1'>{'Data Stok Barang Cabang ' + nama_cabang}</Header>
 				<TableDataBarang _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>
 			</div>
 		)

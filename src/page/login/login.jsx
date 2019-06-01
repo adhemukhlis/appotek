@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import "./login.css";
-import {  UserRole } from "../config";
+import { UserRole } from "../config";
 import { BrandLogo, TextLogo } from "../component/logo";
 import { firebaseRef_setUSER } from "../../firebase/firebaseRef";
 import { GoogleLogin } from 'react-google-login';
 import { LoginStyle, LoginTitle } from "../style";
+import { getSession, setSession } from "../component/func_lib";
 class Login extends Component {
+	userAuth = ( data ) => {
+		this
+			.props
+			.userAuth({ role: data.role, name: data.name, imageUrl: data.imageUrl });
+		setSession('google', JSON.stringify( data ))
+	}
+	componentDidMount( ) {
+		const sessionData = getSession( 'google' );
+		if ( sessionData !== null ) {
+			this.userAuth(JSON.parse( sessionData ))
+		}
+	}
 	responseGoogle = ( response ) => {
 		firebaseRef_setUSER( response.profileObj.googleId ).once('value', snapshot => {
 			if (snapshot.exists( )) {
 				const data = snapshot.val( );
-				this
-					.props
-					.userAuth({ role: data.role, name: data.name, imageUrl: data.imageUrl })
+				this.userAuth( data )
 			} else {
 				firebaseRef_setUSER( response.profileObj.googleId ).set({
 					...response.profileObj,

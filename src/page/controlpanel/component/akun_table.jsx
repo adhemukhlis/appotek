@@ -3,11 +3,11 @@ import { Table, Icon, Input } from 'semantic-ui-react';
 import { AkunRow } from "./akun_row";
 class AkunTable extends Component {
 	render( ) {
-		const { _data, _show, handleInputChange,_search } = this.props;
+		const { _data, _show, handleInputChange, _search } = this.props;
 		return (
 			<Table celled selectable padded unstackable>
 				<Table.Header>
-				<Table.Row >
+					<Table.Row >
 						<Table.HeaderCell colSpan='5'>
 							<Input floated="left" icon='search' placeholder='Search' name='search' value={_search} onChange={handleInputChange}/>
 						</Table.HeaderCell>

@@ -4,7 +4,7 @@ import { Header } from 'semantic-ui-react';
 import { firebaseRef_USER } from "../../../firebase/firebaseRef";
 import TableAkun from "./akun_table";
 import AkunEdit from "./akun_edit";
-import { PanelContainer, PanelHeader } from '../../style';
+import { PanelContainer, PanesHeader } from '../../style';
 class Operasional extends Component {
 	state = {
 		users: [],
@@ -14,7 +14,6 @@ class Operasional extends Component {
 		nik: null,
 		role: null,
 		googleId: null,
-		confirm: null,
 		search:null
 	};
 	componentDidMount( ) {
@@ -83,7 +82,7 @@ class Operasional extends Component {
 					name: this.state.name,
 					role: this.state.role
 				}}/>
-				<Header style={PanelHeader} as='h1'>Akun</Header>
+				<Header style={PanesHeader} as='h1'>Akun</Header>
 				<TableAkun _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>
 			</div>
 		)

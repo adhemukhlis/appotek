@@ -4,6 +4,7 @@ import { data, option } from "./component/config";
 import { Line } from 'react-chartjs-2';
 import { Segment, Grid, Header, Icon, Label } from 'semantic-ui-react';
 import { UANG, SUM } from "../component/func_lib";
+import { PanelHeader } from '../style';
 class Pemasukan extends Component {
 	render( ) {
 		const { legalAccess } = this.props;
@@ -12,12 +13,9 @@ class Pemasukan extends Component {
 		}
 		return (
 			<div>
-				<div style={{
-					margin: '10vh',
-					textAlign: 'center'
-				}}>
+				<div style={PanelHeader}>
 					<Header as='h1'>
-						Pemasukan
+						PEMASUKAN
 					</Header>
 				</div>
 				<Grid columns={3} stackable textAlign='center'>

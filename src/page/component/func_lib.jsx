@@ -1,3 +1,23 @@
+export const getSession = ( header ) => {
+	return window
+		.sessionStorage
+		.getItem( header )
+}
+export const setSession = ( header, value ) => {
+	return window
+		.sessionStorage
+		.setItem( header, value )
+}
+export const delSession = ( header ) => {
+	return window
+		.sessionStorage
+		.removeItem( header )
+}
+export const clearSession = ( ) => {
+	return window
+		.sessionStorage
+		.clear( )
+}
 export const UANG = ( uang ) => {
 	return "Rp" + Number( uang )
 		.toFixed( 0 )

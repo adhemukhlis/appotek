@@ -3,14 +3,19 @@ import { Table, Icon, Input, Button } from 'semantic-ui-react';
 import { DataBarangRow } from "./data_barang_cabang_row";
 class DataBarangTable extends Component {
 	render( ) {
-		const { _data, _show,handleInputChange, _search,  } = this.props;
+		const { _data, _show, handleInputChange, _search } = this.props;
 		return (
 			<Table celled selectable padded unstackable>
 				<Table.Header>
 					<Table.Row >
 						<Table.HeaderCell colSpan='5'>
 							<Input floated="left" icon='search' placeholder='Search' name='search' value={_search} onChange={handleInputChange}/>
-							<Button floated="right" onClick={( ) => this.props._show( 'new' )} positive>add</Button>
+							<Button floated="right" onClick={( ) => this.props._show( 'new' )} positive animated='vertical'>
+								<Button.Content hidden>Add</Button.Content>
+								<Button.Content visible>
+									<Icon name='plus'/>
+								</Button.Content>
+							</Button>
 						</Table.HeaderCell>
 					</Table.Row>
 					<Table.Row>

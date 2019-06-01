@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Button, Checkbox, Icon, Table, Header } from 'semantic-ui-react';
 import { Line } from 'react-chartjs-2';
 import { data, option } from "./component/config";
+import { PanelHeader } from '../style';
 class Presensi extends Component {
 	render( ) {
 		const { legalAccess } = this.props;
@@ -11,12 +12,9 @@ class Presensi extends Component {
 		}
 		return (
 			<div>
-				<div style={{
-					margin: '10vh',
-					textAlign: 'center'
-				}}>
+				<div style={PanelHeader}>
 					<Header as='h1'>
-						Karyawan
+						KARYAWAN
 					</Header>
 				</div>
 				<Table padded celled unstackable>

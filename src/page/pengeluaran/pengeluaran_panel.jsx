@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { Tab, Header } from 'semantic-ui-react';
-import Operasional from "./operasional";
-import StokBarang from "./stock_barang";
-class Pengeluaran extends Component {
+import Operasional from "./component/operasional";
+import StokBarang from "./component/stock_barang";
+import { PanelHeader } from '../style';
+class PanelPengeluaran extends Component {
 	render( ) {
 		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
@@ -24,12 +25,9 @@ class Pengeluaran extends Component {
 		];
 		return (
 			<div>
-				<div style={{
-					margin: '10vh',
-					textAlign: 'center'
-				}}>
+				<div style={PanelHeader}>
 					<Header as='h1'>
-						Pengeluaran
+						PENGELUARAN
 					</Header>
 				</div>
 				<Tab panes={panes}/>
@@ -37,4 +35,4 @@ class Pengeluaran extends Component {
 		)
 	}
 }
-export default Pengeluaran;
+export default PanelPengeluaran;

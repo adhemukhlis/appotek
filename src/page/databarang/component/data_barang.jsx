@@ -4,7 +4,7 @@ import { firebaseRef_BARANG } from "../../../firebase/firebaseRef";
 import { Header } from 'semantic-ui-react';
 import DataBarangEdit from "./data_barang_edit";
 import TableDataBarang from "./data_barang_table";
-import { PanelContainer, PanelHeader } from '../../style';
+import { PanelContainer, PanesHeader } from '../../style';
 class DataBarang extends Component {
 	state = {
 		barang: [],
@@ -12,7 +12,6 @@ class DataBarang extends Component {
 		selected_nama_barang: null,
 		selected_desc: null,
 		selected_img: null,
-		confirm: null,
 		search: null,
 		new_data: null,
 		new_id: ''
@@ -101,7 +100,6 @@ class DataBarang extends Component {
 		};
 		const ExistID = multiColumnSearchArrayTable( barang, searchOptionMultiColumn );
 		const Validation1 = !( ExistID.length < 1 );
-		console.log( ExistID );
 		return (
 			<div style={PanelContainer}>
 				<DataBarangEdit _validation={new_data
@@ -112,11 +110,8 @@ class DataBarang extends Component {
 					desc: this.state.selected_desc,
 					img: this.state.selected_img
 				}}/>
-				<Header style={PanelHeader} as='h1'>Data Barang</Header>{} < TableDataBarang _data = {
-				searchedTableData}
-				_show={this.show}
-				_search={search}
-				handleInputChange={this.handleInputChange}/>
+				<Header style={PanesHeader} as='h1'>Data Barang</Header>
+				<TableDataBarang _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>
 			</div>
 		)
 	}

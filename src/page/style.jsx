@@ -27,9 +27,13 @@ export const ContentMenu = {
 export const PanelContainer = {
 	marginBottom: '100px'
 };
-export const PanelHeader = {
-	margin: '20px'
+export const PanesHeader = {
+	margin: '30px 0px 40px'
 };
+export const PanelHeader = {
+	margin: '10vh',
+	textAlign: 'center'
+}
 export const SidebarFloatBTN = {
 	position: 'absolute',
 	display: 'inline-block',

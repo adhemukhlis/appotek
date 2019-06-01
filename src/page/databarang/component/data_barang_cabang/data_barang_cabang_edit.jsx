@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EditPopup from "../../../editpopup/editpopup";
-import { Form, Input, Dropdown } from 'semantic-ui-react';
+import { Form, Input } from 'semantic-ui-react';
 import { UANG } from "../../../component/func_lib";
 import DataID from "../dropdown_id";
 class DataBarangEdit extends Component {
