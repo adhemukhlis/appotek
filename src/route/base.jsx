@@ -7,6 +7,7 @@ import PagePresensi from "../page/presensi/presensi";
 import PageDataBarang from "../page/databarang/data_barang_panel";
 import PagePemasukan from "../page/pemasukan/pemasukan";
 import PageControlPanel from "../page/controlpanel/controlpanel";
+import Dev from "../page/dev/dev";
 import { UserRole, Path } from "../page/config";
 import SideBar from "../page/component/sidebar";
 import { delSession } from '../page/component/func_lib';
@@ -32,6 +33,7 @@ class App extends Component {
 		return (
 			<div>
 				<SideBar user={user} logout={this.logout}>
+					<Route path={Path.Dev} exact component= { ( ) =>< Dev />}/>
 					<Route path={Path.PageLogin} exact component= { ( ) =>< PageLogin userAuth={this.userAuth} loggedAs={this.state.loggedAs}/>}/>
 					<Route path={Path.PageTransaksi} component= { ( ) =>< PageTransaksi legalAccess={this.state.loggedAs===UserRole[2]} />}/>
 					<Route path={Path.PagePengeluaran} component= { ( ) =>< PagePengeluaran legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]} />}/>

@@ -2,6 +2,7 @@ export const UserRole = [ 'ow', 'kc', 'kw' ];
 export const Cabang = [ 'jkt', 'pwt' ];
 export const CabangFull = [ 'Jakarta', 'Purwokerto' ];
 export const Path = {
+	Dev:'/dev',
 	PageLogin: '/',
 	PageTransaksi: '/transaksi',
 	PagePengeluaran: '/pengeluaran',
