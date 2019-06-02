@@ -1,4 +1,5 @@
 export const UserRole = [ 'ow', 'kc', 'kw' ];
+export const PengeluaranTypes = ['operasional','barang'] 
 export const Cabang = [ 'jkt', 'pwt' ];
 export const CabangFull = [ 'Jakarta', 'Purwokerto' ];
 export const Path = {

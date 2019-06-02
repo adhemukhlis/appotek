@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import EditPopup from "../../editpopup/editpopup";
-import { Form, Input } from 'semantic-ui-react';
+import { Form, Input, Dropdown } from 'semantic-ui-react';
 import { UANG } from "../../component/func_lib";
-class OperasionalEdit extends Component {
+import { PengeluaranTypes } from '../../config';
+class PengeluaranEdit extends Component {
 	render( ) {
 		const {
 			_data,
@@ -14,7 +15,9 @@ class OperasionalEdit extends Component {
 			_onSave,
 			_delete,
 			_new_data,
-			handleInputChange
+			handleInputChange,
+			handleDropDownChange
+
 		} = this.props;
 		const FormContent = (
 			<Form>{_new_data
@@ -30,8 +33,29 @@ class OperasionalEdit extends Component {
 					<Input name='selected_pembelian' onChange={handleInputChange} placeholder='Pembelian' value={_data.pembelian}/>
 				</Form.Field>
 				<Form.Field>
+					<label>Jenis Pembelian</label>
+					<Dropdown text={_data.jenis_pembelian === PengeluaranTypes[0]
+						? 'Operasional'
+						: _data.jenis_pembelian === PengeluaranTypes[1]
+							? 'Barang'
+							:null} selection>
+						<Dropdown.Menu >
+							<Dropdown.Item name='selected_jenis_pembelian' onClick={handleDropDownChange} text='Operasional' value={PengeluaranTypes[0]}/>
+							<Dropdown.Item name='selected_jenis_pembelian' onClick={handleDropDownChange} text='Barang' value={PengeluaranTypes[1]}/>
+						</Dropdown.Menu>
+					</Dropdown>
+				</Form.Field>
+				<Form.Field>
+					<label>Cabang</label>
+					<Input name='selected_cabang' onChange={handleInputChange} placeholder='Cabang' value={_data.cabang}/>
+				</Form.Field>
+				<Form.Field>
 					<label>QTY</label>
 					<Input name='selected_qty' onChange={handleInputChange} value={_data.qty} placeholder='Banyak Barang'/>
+				</Form.Field>
+				<Form.Field>
+					<label>Satuan</label>
+					<Input name='selected_satuan' onChange={handleInputChange} placeholder='Satuan' value={_data.satuan}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Harga</label>
@@ -52,4 +76,4 @@ class OperasionalEdit extends Component {
 		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
 	}
 }
-export default OperasionalEdit;
+export default PengeluaranEdit;

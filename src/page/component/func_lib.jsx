@@ -1,3 +1,7 @@
+import moment from "moment";
+export const ShortDate = (dateVal)=>{
+	return moment(dateVal).format("DD/MM/YYYY")
+} 
 export const getSession = ( header ) => {
 	return window
 		.sessionStorage

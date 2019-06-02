@@ -1,4 +1,3 @@
-// import firebase from 'firebase';
 import firebase from 'firebase/app';
 import 'firebase/database';
 const config = {
@@ -16,7 +15,13 @@ export const rootRef = firebase
 export const firebaseRef_USER = rootRef.child( 'user' );
 export const firebaseRef_GAJI = rootRef.child( 'gaji' );
 export const firebaseRef_CABANG = rootRef.child( 'cabang' );
-export const firebaseRef_OPERASIONAL= rootRef.child( 'pengeluaran' ).child('operasional');
-export const firebaseRef_CABANG_BARANG = ( key ) => rootRef.child( 'cabang-barang' ).child(key);
+export const firebaseRef_OPERASIONAL = rootRef
+	.child( 'pengeluaran' )
+	.child( 'operasional' );
+export const firebaseRef_PENGELUARAN = rootRef.child( 'pengeluaran' );
+export const firebaseRef_CABANG_BARANG = ( key ) => rootRef
+	.child( 'cabang-barang' )
+	.child( key );
 export const firebaseRef_BARANG = rootRef.child( 'barang' );
 export const firebaseRef_setUSER = ( googleid ) => firebaseRef_USER.child( googleid );
+export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;

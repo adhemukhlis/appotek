@@ -29,7 +29,8 @@ class Login extends Component {
 				firebaseRef_setUSER( response.profileObj.googleId ).set({
 					...response.profileObj,
 					role: '0',
-					nik: '0'
+					nik: '0',
+					cabang: '0'
 				})
 			}
 		})

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Header } from 'semantic-ui-react';
 import { PanesHeader } from '../../style';
-class StockBarang extends Component {
+class Pengadaan extends Component {
 	render( ) {
 		return (
 			<div>
@@ -21,4 +21,4 @@ class StockBarang extends Component {
 		)
 	}
 }
-export default StockBarang;
+export default Pengadaan;

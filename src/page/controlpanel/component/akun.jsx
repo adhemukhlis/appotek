@@ -11,6 +11,7 @@ class Operasional extends Component {
 		open: false,
 		email: null,
 		name: null,
+		cabang:null,
 		nik: null,
 		role: null,
 		googleId: null,
@@ -33,7 +34,8 @@ class Operasional extends Component {
 			email: this.state.email,
 			nik: this.state.nik,
 			name: this.state.name,
-			role: this.state.role
+			role: this.state.role,
+			cabang:this.state.cabang
 		};
 		firebaseRef_USER
 			.child( this.state.googleId )
@@ -61,6 +63,7 @@ class Operasional extends Component {
 		nik: user.nik,
 		name: user.name,
 		role: user.role,
+		cabang:user.cabang,
 		open: true
 	});
 	close = ( ) => this.setState({ open: false });
@@ -80,7 +83,8 @@ class Operasional extends Component {
 					email: this.state.email,
 					nik: this.state.nik,
 					name: this.state.name,
-					role: this.state.role
+					role: this.state.role,
+					cabang:this.state.cabang
 				}}/>
 				<Header style={PanesHeader} as='h1'>Akun</Header>
 				<TableAkun _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>

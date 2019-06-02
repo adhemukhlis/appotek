@@ -22,7 +22,7 @@ class GajiTable extends Component {
 						<Table.HeaderCell>Jabatan</Table.HeaderCell>
 						<Table.HeaderCell>Cabang</Table.HeaderCell>
 						<Table.HeaderCell>Gaji</Table.HeaderCell>
-						<Table.HeaderCell collapsing textAlign='center'><Icon name='settings'/></Table.HeaderCell>
+						<Table.HeaderCell textAlign='center'><Icon name='settings'/></Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>{_data.map( ( gaji, n ) =>< GajiRow key = {

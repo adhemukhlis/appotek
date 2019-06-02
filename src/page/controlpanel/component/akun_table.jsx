@@ -8,7 +8,7 @@ class AkunTable extends Component {
 			<Table celled selectable padded unstackable>
 				<Table.Header>
 					<Table.Row >
-						<Table.HeaderCell colSpan='5'>
+						<Table.HeaderCell colSpan='6'>
 							<Input floated="left" icon='search' placeholder='Search' name='search' value={_search} onChange={handleInputChange}/>
 						</Table.HeaderCell>
 					</Table.Row>
@@ -17,6 +17,7 @@ class AkunTable extends Component {
 						<Table.HeaderCell>NIK</Table.HeaderCell>
 						<Table.HeaderCell>Nama</Table.HeaderCell>
 						<Table.HeaderCell>User Type</Table.HeaderCell>
+						<Table.HeaderCell>Cabang</Table.HeaderCell>
 						<Table.HeaderCell collapsing textAlign='center'><Icon name='settings'/></Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
