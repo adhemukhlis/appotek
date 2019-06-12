@@ -3,7 +3,7 @@ import { Dropdown } from 'semantic-ui-react';
 class DropdownCabang extends Component {
 	GetName = ( arr, i ) => {
 		const result = arr.find( data => data.id === i );
-		return result.nama_cabang
+		return result===undefined?'Illegal':result.nama_cabang
 	}
 	render( ) {
 		const { _data, handleDropDownChange, _cabang } = this.props;

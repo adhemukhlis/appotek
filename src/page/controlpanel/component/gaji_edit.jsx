@@ -4,8 +4,13 @@ import DropdownCabang from "./dropdown_cabang";
 import { Form, Input, Dropdown } from 'semantic-ui-react';
 import { UserRole } from '../../config';
 import { UANG } from '../../component/func_lib';
+import { LIST_CABANG } from '../../../firebase/firebaseREST';
 class GajiEdit extends Component {
+	state = {
+		cabang:LIST_CABANG()
+	}
 	render( ) {
+		const {cabang} = this.state
 		const {
 			_data,
 			_keydelete,
@@ -16,7 +21,6 @@ class GajiEdit extends Component {
 			_onSave,
 			_delete,
 			_new_data,
-			_cabang,
 			handleInputChange,
 			handleDropDownChange
 		} = this.props;
@@ -47,7 +51,7 @@ class GajiEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>Cabang</label>
-					<DropdownCabang _data={_data} _cabang={_cabang} handleDropDownChange={handleDropDownChange}/>
+					<DropdownCabang _data={_data} _cabang={cabang} handleDropDownChange={handleDropDownChange}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Gaji</label>

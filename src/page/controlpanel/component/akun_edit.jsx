@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import EditPopup from "../../editpopup/editpopup";
 import { Form, Input, Dropdown } from 'semantic-ui-react';
+import DropdownCabang from "./dropdown_cabang";
+import {LIST_CABANG} from "../../../firebase/firebaseREST";
 import { UserRole, CabangFull, Cabang } from '../../config';
 class AkunEdit extends Component {
+	state = {
+		cabang:LIST_CABANG()
+	}
 	render( ) {
+		const {cabang} = this.state
 		const {
 			_data,
 			_keydelete,
@@ -31,7 +37,7 @@ class AkunEdit extends Component {
 					<Input placeholder='Name' name='name' value={_data.name} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
-					<label>role</label>
+					<label>Role</label>
 					<Dropdown text={_data.role === UserRole[0]
 						? 'Owner'
 						: _data.role === UserRole[1]
@@ -47,18 +53,8 @@ class AkunEdit extends Component {
 					</Dropdown>
 				</Form.Field>
 				<Form.Field>
-					<label>role</label>
-					<Dropdown text={_data.cabang === Cabang[0]
-						? CabangFull[0]
-						: _data.cabang === Cabang[1]
-							? CabangFull[1]
-							: _data.cabang==='all'?'All':'Illegal'} selection>
-						<Dropdown.Menu >
-							<Dropdown.Item name='cabang' onClick={handleDropDownChange} text={'All'} value={'all'}/>
-							<Dropdown.Item name='cabang' onClick={handleDropDownChange} text={CabangFull[0]} value={Cabang[0]}/>
-							<Dropdown.Item name='cabang' onClick={handleDropDownChange} text={CabangFull[1]} value={Cabang[1]}/>
-						</Dropdown.Menu>
-					</Dropdown>
+					<label>Cabang</label>
+					<DropdownCabang _data={_data} _cabang={cabang} handleDropDownChange={handleDropDownChange}/>
 				</Form.Field>
 			</Form>
 		);

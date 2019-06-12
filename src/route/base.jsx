@@ -15,27 +15,31 @@ class App extends Component {
 	state = {
 		loggedAs: null,
 		name: null,
-		imageUrl: null
+		imageUrl: null,
+		cabang:null
 	};
 	userAuth = ( data ) => {
-		this.setState({ loggedAs: data.role, name: data.name, imageUrl: data.imageUrl })
+		this.setState({ loggedAs: data.role, name: data.name, imageUrl: data.imageUrl, cabang:data.cabang })
+		// this.setState({ userdata: data})
 	};
 	logout = ( ) => {
 		this.setState({ loggedAs: null });
+		// this.setState({ userdata: null });
 		delSession( 'google' )
 	}
 	render( ) {
 		const user = {
 			role: this.state.loggedAs,
 			name: this.state.name,
-			imageUrl: this.state.imageUrl
+			imageUrl: this.state.imageUrl,
+			cabang:this.state.cabang
 		};
 		return (
 			<div>
 				<SideBar user={user} logout={this.logout}>
 					<Route path={Path.Dev} exact component= { ( ) =>< Dev />}/>
 					<Route path={Path.PageLogin} exact component= { ( ) =>< PageLogin userAuth={this.userAuth} loggedAs={this.state.loggedAs}/>}/>
-					<Route path={Path.PageTransaksi} component= { ( ) =>< PageTransaksi legalAccess={this.state.loggedAs===UserRole[2]} />}/>
+					<Route path={Path.PageTransaksi} component= { ( ) =>< PageTransaksi legalAccess={this.state.loggedAs===UserRole[2]} userdata={user} />}/>
 					<Route path={Path.PagePengeluaran} component= { ( ) =>< PagePengeluaran legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]} />}/>
 					<Route path={Path.PagePresensi} component= { ( ) =>< PagePresensi legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
 					<Route path={Path.PageControlPanel} component= { ( ) =>< PageControlPanel legalAccess = { this.state.loggedAs === UserRole[0] } /> }/>

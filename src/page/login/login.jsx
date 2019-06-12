@@ -9,9 +9,13 @@ import { LoginStyle, LoginTitle } from "../style";
 import { getSession, setSession } from "../component/func_lib";
 class Login extends Component {
 	userAuth = ( data ) => {
+		// console.log( data );
+		// this
+		// 	.props
+		// 	.userAuth({ role: data.role, name: data.name, imageUrl: data.imageUrl });
 		this
 			.props
-			.userAuth({ role: data.role, name: data.name, imageUrl: data.imageUrl });
+			.userAuth(data);
 		setSession('google', JSON.stringify( data ))
 	}
 	componentDidMount( ) {

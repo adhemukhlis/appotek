@@ -3,7 +3,9 @@ export const PengeluaranTypes = ['operasional','barang']
 export const Cabang = [ 'jkt', 'pwt' ];
 export const CabangFull = [ 'Jakarta', 'Purwokerto' ];
 export const Path = {
+	Test:'/test',
 	Dev:'/dev',
+	//^experimental^
 	PageLogin: '/',
 	PageTransaksi: '/transaksi',
 	PagePengeluaran: '/pengeluaran',

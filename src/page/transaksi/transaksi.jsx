@@ -15,6 +15,7 @@ import { barang } from "./component/data_barang";
 import ShortHandButtons from "./component/shorthand_btn";
 import { UANG, SUM, FULLDATE } from '../component/func_lib';
 import { TransaksiStyle, TransaksiSearchBar } from "../style";
+import { firebaseRef_CABANG_BARANG, firebaseRef_BARANG } from '../../firebase/firebaseRef';
 class Transaksi extends Component {
 	state = {
 		fulldate: null,
@@ -27,8 +28,22 @@ class Transaksi extends Component {
 			harga: [],
 			total: [ ]
 		},
-		tunai: 0
+		tunai: 0,
+		list_barang: [],
+		list_barang2: barang
 	};
+	componentDidMount( ) {
+		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
+			let tmp_barang = this.state.list_barang;
+			snap.forEach(shotdata => {
+				tmp_barang.push({
+					id: shotdata.key,
+					...shotdata.val( )
+				})
+			});
+			this.setState({ list_barang: tmp_barang })
+		})
+	}
 	addToCart = ( item ) => {
 		let TMP_cart = this.state.pembelian;
 		TMP_cart
@@ -69,7 +84,7 @@ class Transaksi extends Component {
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}
-		const { tunai } = this.state;
+		const { tunai, list_barang, list_barang2 } = this.state;
 		return (
 			<div style={TransaksiStyle}>
 				<div style={TransaksiSearchBar}>
@@ -156,7 +171,7 @@ class Transaksi extends Component {
 					</Modal>
 				</div>
 				<Container>
-					<Card.Group itemsPerRow={4}>{barang.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
+					<Card.Group itemsPerRow={4}>{console.log( list_barang )}{list_barang.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
 				</Container>
 			</div>
 		)

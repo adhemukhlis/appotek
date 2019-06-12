@@ -17,8 +17,8 @@ class DataBarangCabang extends Component {
 	};
 	update = ( ) => {
 		const content = {
-			stok: this.state.selected_stok,
-			harga: this.state.selected_harga
+			stok: parseInt(this.state.selected_stok),
+			harga: parseInt(this.state.selected_harga)
 		};
 		if ( this.state.new_data ) {
 			firebaseRef_CABANG_BARANG( this.props.id_cabang )
