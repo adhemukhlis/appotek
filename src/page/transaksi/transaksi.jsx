@@ -11,11 +11,9 @@ import {
 } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import Barang from "./component/barang";
-import { barang } from "./component/data_barang";
-import ShortHandButtons from "./component/shorthand_btn";
 import { UANG, SUM, FULLDATE } from '../component/func_lib';
 import { TransaksiStyle, TransaksiSearchBar } from "../style";
-import { firebaseRef_CABANG_BARANG, firebaseRef_BARANG } from '../../firebase/firebaseRef';
+import { firebaseRef_CABANG_BARANG } from '../../firebase/firebaseRef';
 class Transaksi extends Component {
 	state = {
 		fulldate: null,
@@ -23,18 +21,19 @@ class Transaksi extends Component {
 		kasir: 'mukhlis',
 		cabang: 'purwokerto',
 		pembelian: {
+			id: [],
 			item: [],
 			jumlah: [],
 			harga: [],
-			total: [ ]
+			total: [],
+			stok: [ ]
 		},
 		tunai: 0,
-		list_barang: [],
-		list_barang2: barang
+		list_barang: [ ]
 	};
 	componentDidMount( ) {
 		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
-			let tmp_barang = this.state.list_barang;
+			let tmp_barang = [ ];
 			snap.forEach(shotdata => {
 				tmp_barang.push({
 					id: shotdata.key,
@@ -44,8 +43,22 @@ class Transaksi extends Component {
 			this.setState({ list_barang: tmp_barang })
 		})
 	}
+	UpdateData = ( index ) => {
+		const content = {
+			id: this.state.pembelian.id[index],
+			harga: this.state.pembelian.harga[index],
+			stok: this.state.pembelian.stok[index] - this.state.pembelian.jumlah[index]
+		};
+		firebaseRef_CABANG_BARANG( this.props.userdata.cabang )
+			.child( content.id )
+			.update( content )
+	}
 	addToCart = ( item ) => {
+		console.log( item.id );
 		let TMP_cart = this.state.pembelian;
+		TMP_cart
+			.id
+			.push( item.id );
 		TMP_cart
 			.item
 			.push( item.item );
@@ -56,9 +69,31 @@ class Transaksi extends Component {
 			.harga
 			.push( item.harga );
 		TMP_cart
+			.stok
+			.push( item.stok );
+		TMP_cart
 			.total
 			.push( item.total );
 		this.setState({ pembelian: TMP_cart })
+	}
+	deleteFunc = ( index, arr ) => {
+		let array = arr;
+		if ( index !== -1 ) {
+			array.splice( index, 1 )
+		}
+		return array
+	}
+	deleteItem = ( index ) => {
+		const pembelian = this.state.pembelian;
+		const tmp_pembelian = {
+			id: this.deleteFunc( index, pembelian.id ),
+			item: this.deleteFunc( index, pembelian.item ),
+			jumlah: this.deleteFunc( index, pembelian.jumlah ),
+			harga: this.deleteFunc( index, pembelian.harga ),
+			stok: this.deleteFunc( index, pembelian.stok ),
+			total: this.deleteFunc( index, pembelian.total )
+		};
+		this.setState({ pembelian: tmp_pembelian })
 	}
 	open = ( ) => {
 		this.setState({fulldate: FULLDATE( )})
@@ -77,14 +112,19 @@ class Transaksi extends Component {
 			tunai: this.state.tunai,
 			...this.state.pembelian
 		};
-		console.log( payment )
+		console.log( payment );
+		this
+			.state
+			.pembelian
+			.id
+			.map(( data, i ) => this.UpdateData( i ))
 	}
 	render( ) {
 		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}
-		const { tunai, list_barang, list_barang2 } = this.state;
+		const { tunai, list_barang } = this.state;
 		return (
 			<div style={TransaksiStyle}>
 				<div style={TransaksiSearchBar}>
@@ -107,31 +147,30 @@ class Transaksi extends Component {
 						<Modal.Header>Pembayaran</Modal.Header>
 						<Modal.Content image scrolling>
 							<Modal.Description>
-								<Input value={tunai} onChange={this.inputTunai} type='text' placeholder='Tunai'/>
-								<ShortHandButtons onbtnClick={this.shortHand}/>
 								<Table celled>
 									<Table.Header>
 										<Table.Row>
 											<Table.HeaderCell>Kode Transaksi</Table.HeaderCell>
-											<Table.HeaderCell colSpan='3'>{this.state.paymentcode}-v</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.paymentcode}-v</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
 											<Table.HeaderCell>Kasir</Table.HeaderCell>
-											<Table.HeaderCell colSpan='3'>{this.state.kasir}</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.kasir}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
 											<Table.HeaderCell>Cabang</Table.HeaderCell>
-											<Table.HeaderCell colSpan='3'>{this.state.cabang}</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.cabang}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
 											<Table.HeaderCell>Date Time</Table.HeaderCell>
-											<Table.HeaderCell colSpan='3'>{this.state.fulldate}</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.fulldate}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
-											<Table.HeaderCell>Barang</Table.HeaderCell>
-											<Table.HeaderCell>QTY</Table.HeaderCell>
-											<Table.HeaderCell>Harga</Table.HeaderCell>
-											<Table.HeaderCell>Total</Table.HeaderCell>
+											<Table.HeaderCell textAlign='center'>Barang</Table.HeaderCell>
+											<Table.HeaderCell textAlign='center'>QTY</Table.HeaderCell>
+											<Table.HeaderCell textAlign='center'>Harga</Table.HeaderCell>
+											<Table.HeaderCell textAlign='center'>Total</Table.HeaderCell>
+											<Table.HeaderCell textAlign='center' collapsing><Icon name='settings'/></Table.HeaderCell>
 										</Table.Row>
 									</Table.Header>
 									<Table.Body>{this
@@ -144,19 +183,29 @@ class Transaksi extends Component {
 													<Table.Cell>{this.state.pembelian.jumlah[i]}</Table.Cell>
 													<Table.Cell textAlign='right'>{UANG(this.state.pembelian.harga[i])}</Table.Cell>
 													<Table.Cell textAlign='right'>{UANG(this.state.pembelian.total[i])}</Table.Cell>
+													<Table.Cell>
+														<Button icon onClick={( ) => this.deleteItem( i )}>
+															<Icon name='trash alternate outline'/>
+														</Button>
+													</Table.Cell>
 												</Table.Row>
 											))}
 										<Table.Row >
 											<Table.Cell active>Total Bayar</Table.Cell>
-											<Table.Cell textAlign='right' active colSpan='3'>{UANG(SUM( this.state.pembelian.total ))}</Table.Cell>
+											<Table.Cell textAlign='right' active colSpan='4'>{UANG(SUM( this.state.pembelian.total ))}</Table.Cell>
 										</Table.Row>
 										<Table.Row>
 											<Table.Cell active>Tunai</Table.Cell>
-											<Table.Cell textAlign='right' active colSpan='3'>{UANG( tunai )}</Table.Cell>
+											<Table.Cell textAlign='right' active colSpan='4'>
+												<Input fluid placeholder='Tunai' name='selected_gaji' value={tunai} onChange={this.inputTunai} label={{
+													tag: true,
+													content: UANG( tunai )
+												}} labelPosition='right'/>
+											</Table.Cell>
 										</Table.Row>
 										<Table.Row warning>
 											<Table.Cell >Kembalian</Table.Cell>
-											<Table.Cell textAlign='right' colSpan='3'>{UANG(tunai - SUM( this.state.pembelian.total ))}</Table.Cell>
+											<Table.Cell textAlign='right' colSpan='4'>{UANG(tunai - SUM( this.state.pembelian.total ))}</Table.Cell>
 										</Table.Row>
 									</Table.Body>
 								</Table>
@@ -171,7 +220,7 @@ class Transaksi extends Component {
 					</Modal>
 				</div>
 				<Container>
-					<Card.Group itemsPerRow={4}>{console.log( list_barang )}{list_barang.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
+					<Card.Group itemsPerRow={4}>{list_barang.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
 				</Container>
 			</div>
 		)

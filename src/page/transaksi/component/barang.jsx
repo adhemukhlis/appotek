@@ -42,9 +42,11 @@ class Barang extends Component {
 	}
 	addToChart = ( ) => {
 		const item = {
-			item: this.props.barang.nama_barang,
+			id:this.props.barang.id,
+			item: this.state.nama_barang,
 			jumlah: this.state.jumlahBeli,
 			harga: this.props.barang.harga,
+			stok:this.props.barang.stok,
 			total: parseInt( this.state.jumlahBeli ) * parseInt( this.props.barang.harga )
 		};
 		this
