@@ -12,6 +12,7 @@ firebase.initializeApp( config );
 export const rootRef = firebase
 	.database( )
 	.ref( );
+export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 export const firebaseRef_USER = rootRef.child( 'user' );
 export const firebaseRef_GAJI = rootRef.child( 'gaji' );
 export const firebaseRef_CABANG = rootRef.child( 'cabang' );
@@ -24,4 +25,80 @@ export const firebaseRef_CABANG_BARANG = ( key ) => rootRef
 	.child( key );
 export const firebaseRef_BARANG = rootRef.child( 'barang' );
 export const firebaseRef_setUSER = ( googleid ) => firebaseRef_USER.child( googleid );
-export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
+export const AKUN_SIGNUP = ( profileObj ) => {
+	firebaseRef_setUSER( profileObj.googleId ).set({
+		...profileObj,
+		role: 0,
+		nik: 0,
+		cabang: 0
+	})
+}
+export const AKUN_EDIT = ( googleId, content ) => {
+	firebaseRef_setUSER( googleId )
+		.update( content )
+}
+export const AKUN_DELETE = ( googleId ) => {
+	firebaseRef_setUSER( googleId ).remove( )
+}
+export const GAJI_ADD = ( content ) => {
+	firebaseRef_GAJI.push( content )
+}
+export const GAJI_EDIT = ( id, content ) => {
+	firebaseRef_GAJI
+		.child( id )
+		.update( content )
+}
+export const GAJI_DELETE = ( id ) => {
+	firebaseRef_GAJI
+		.child( id )
+		.remove( )
+}
+export const CABANG_BARANG_ADD = ( id, cabang, content ) => {
+	firebaseRef_CABANG_BARANG( cabang )
+		.child( id )
+		.set({
+			id: id,
+			...content
+		})
+}
+export const CABANG_BARANG_EDIT = ( id, cabang, content ) => {
+	firebaseRef_CABANG_BARANG( cabang )
+		.child( id )
+		.update( content )
+}
+export const CABANG_BARANG_DELETE = ( id, cabang ) => {
+	firebaseRef_CABANG_BARANG( cabang )
+		.child( id )
+		.remove( )
+}
+export const PENGELUARAN_ADD = ( content ) => {
+	firebaseRef_PENGELUARAN.push( content )
+}
+export const PENGELUARAN_EDIT = ( id, content ) => {
+	firebaseRef_PENGELUARAN
+		.child( id )
+		.update( content )
+}
+export const PENGELUARAN_DELETE = ( id ) => {
+	firebaseRef_PENGELUARAN
+		.child( id )
+		.remove( )
+}
+export const BARANG_ADD = ( id, content ) => {
+	firebaseRef_BARANG
+		.child( id )
+		.set({
+			id: id,
+			...content
+		})
+}
+export const BARANG_EDIT = ( id, content ) => {
+	firebaseRef_BARANG
+		.child( id )
+		.update( content )
+}
+export const BARANG_DELETE = ( id ) => {
+	firebaseRef_BARANG
+		.child( id )
+		.remove( )
+}

@@ -4,7 +4,6 @@ import * as serviceWorker from './serviceWorker';
 import "semantic-ui-css/semantic.min.css";
 import Route from "./route/route";
 
-
 ReactDOM.render(<Route />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

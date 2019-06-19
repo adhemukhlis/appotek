@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { searchArrayTable } from "array-table-search";
 import { Header } from 'semantic-ui-react';
 import GajiEdit from "./gaji_edit";
-import { firebaseRef_GAJI } from "../../../firebase/firebaseRef";
+import { firebaseRef_GAJI, GAJI_EDIT, GAJI_ADD, GAJI_DELETE } from "../../../firebase/firebaseRef";
 import { PanesHeader, PanelContainer } from '../../style';
 import TableGaji from "./gaji_table";
 class Operasional extends Component {
@@ -26,7 +26,7 @@ class Operasional extends Component {
 				})
 			});
 			this.setState({ gaji: tmp })
-		});
+		})
 	}
 	update = ( ) => {
 		const content = {
@@ -35,23 +35,13 @@ class Operasional extends Component {
 			jabatan: this.state.selected_jabatan
 		};
 		if ( this.state.selected_id !== null ) {
-			firebaseRef_GAJI
-				.child( this.state.selected_id )
-				.update( content )
-				.then(( ) => {
-					console.log( "Data saved successfully." )
-				})
-				.catch(( error ) => {
-					console.log( "Data could not be saved." + error )
-				})
+			GAJI_EDIT( this.state.selected_id, content )
 		} else {
-			firebaseRef_GAJI.push( content )
+			GAJI_ADD( content )
 		}
 	}
 	delete = ( ) => {
-		firebaseRef_GAJI
-			.child( this.state.selected_id )
-			.remove( );
+		GAJI_DELETE( this.state.selected_id );
 		this.close( )
 	}
 	handleConfirm = ( ) => {

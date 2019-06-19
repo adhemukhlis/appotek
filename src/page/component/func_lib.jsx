@@ -1,7 +1,8 @@
 import moment from "moment";
-export const ShortDate = (dateVal)=>{
-	return moment(dateVal).format("DD/MM/YYYY")
-} 
+import { UserRole } from "../config";
+export const ShortDate = ( dateVal ) => {
+	return moment( dateVal ).format( "DD/MM/YYYY" )
+}
 export const getSession = ( header ) => {
 	return window
 		.sessionStorage
@@ -79,4 +80,12 @@ export const timestamp = ( ) => {
 export const FULLDATE = ( ) => {
 	const date = new Date( );
 	return date.getFullYear( ) + '-' + date.getMonth( ) + '-' + date.getDate( ) + ' ' + date.getHours( ) + ':' + date.getMinutes( ) + ':' + date.getSeconds( )
+}
+export const VALIDATION_ERROR_ATT = ( user ) => {
+	return ( !UserRole.includes( user.role ) || user.cabang === 0 || user.nik === 0 )
+}
+export const VALIDATION_NIK = ( user ) => {
+	return ( user.nik === 0
+		? 'Illegal'
+		: user.nik )
 }

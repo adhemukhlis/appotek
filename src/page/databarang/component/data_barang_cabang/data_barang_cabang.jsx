@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { searchArrayTable } from "array-table-search";
-import { firebaseRef_CABANG_BARANG } from "../../../../firebase/firebaseRef";
+import { CABANG_BARANG_ADD, CABANG_BARANG_EDIT, CABANG_BARANG_DELETE } from "../../../../firebase/firebaseRef";
 import { Header } from 'semantic-ui-react';
 import DataBarangEdit from "./data_barang_cabang_edit";
 import TableDataBarang from "./data_barang_cabang_table";
@@ -17,38 +17,17 @@ class DataBarangCabang extends Component {
 	};
 	update = ( ) => {
 		const content = {
-			stok: parseInt(this.state.selected_stok),
-			harga: parseInt(this.state.selected_harga)
+			stok: parseInt( this.state.selected_stok ),
+			harga: parseInt( this.state.selected_harga )
 		};
 		if ( this.state.new_data ) {
-			firebaseRef_CABANG_BARANG( this.props.id_cabang )
-				.child( this.state.selected_id )
-				.set({
-					id: this.state.selected_id,
-					...content
-				})
+			CABANG_BARANG_ADD( this.state.selected_id, this.props.id_cabang, content )
 		} else {
-			firebaseRef_CABANG_BARANG( this.props.id_cabang )
-				.child( this.state.selected_id )
-				.update( content )
-				.then(( ) => {
-					console.log( "Data saved successfully." )
-				})
-				.catch(( error ) => {
-					console.log( "Data could not be saved." + error )
-				})
+			CABANG_BARANG_EDIT( this.state.selected_id, this.props.id_cabang, content )
 		}
 	}
 	delete = ( ) => {
-		firebaseRef_CABANG_BARANG( this.props.id_cabang )
-			.child( this.state.selected_id )
-			.remove( )
-			.then(( ) => {
-				console.log( "Data delete successfully." )
-			})
-			.catch(( error ) => {
-				console.log( "Data could not be delete." + error )
-			});
+		CABANG_BARANG_DELETE( this.state.selected_id, this.props.id_cabang );
 		this.close( )
 	}
 	handleConfirm = ( ) => {

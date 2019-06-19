@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import EditPopup from "../../editpopup/editpopup";
 import { Form, Input, Dropdown } from 'semantic-ui-react';
 import DropdownCabang from "./dropdown_cabang";
-import {LIST_CABANG} from "../../../firebase/firebaseREST";
-import { UserRole, CabangFull, Cabang } from '../../config';
+import { LIST_CABANG } from "../../../firebase/firebaseREST";
+import { UserRole } from '../../config';
 class AkunEdit extends Component {
 	state = {
-		cabang:LIST_CABANG()
-	}
+		cabang: LIST_CABANG( )
+	};
 	render( ) {
-		const {cabang} = this.state
+		const { cabang } = this.state;
 		const {
 			_data,
 			_keydelete,
@@ -25,16 +25,20 @@ class AkunEdit extends Component {
 		const FormContent = (
 			<Form>
 				<Form.Field>
+					<label>ID</label>
+					<Input value={_data.googleId}/>
+				</Form.Field>
+				<Form.Field>
 					<label>Email</label>
 					<Input value={_data.email}/>
 				</Form.Field>
 				<Form.Field>
 					<label>NIK</label>
-					<Input placeholder='NIK' name='nik' value={_data.nik} onChange={handleInputChange}/>
+					<Input placeholder='NIK' name='selected_nik' value={_data.nik} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Name</label>
-					<Input placeholder='Name' name='name' value={_data.name} onChange={handleInputChange}/>
+					<Input placeholder='Name' name='selected_name' value={_data.name} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Role</label>
@@ -46,9 +50,9 @@ class AkunEdit extends Component {
 								? 'Karyawan'
 								: 'Illegal'} selection>
 						<Dropdown.Menu >
-							<Dropdown.Item name='role' onClick={handleDropDownChange} text='Owner' value={UserRole[0]}/>
-							<Dropdown.Item name='role' onClick={handleDropDownChange} text='Kepala Cabang' value={UserRole[1]}/>
-							<Dropdown.Item name='role' onClick={handleDropDownChange} text='Karyawan' value={UserRole[2]}/>
+							<Dropdown.Item name='selected_role' onClick={handleDropDownChange} text='Owner' value={UserRole[0]}/>
+							<Dropdown.Item name='selected_role' onClick={handleDropDownChange} text='Kepala Cabang' value={UserRole[1]}/>
+							<Dropdown.Item name='selected_role' onClick={handleDropDownChange} text='Karyawan' value={UserRole[2]}/>
 						</Dropdown.Menu>
 					</Dropdown>
 				</Form.Field>

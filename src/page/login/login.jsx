@@ -3,19 +3,15 @@ import { Redirect } from "react-router-dom";
 import "./login.css";
 import { UserRole } from "../config";
 import { BrandLogo, TextLogo } from "../component/logo";
-import { firebaseRef_setUSER } from "../../firebase/firebaseRef";
+import { firebaseRef_setUSER, AKUN_SIGNUP } from "../../firebase/firebaseRef";
 import { GoogleLogin } from 'react-google-login';
 import { LoginStyle, LoginTitle } from "../style";
 import { getSession, setSession } from "../component/func_lib";
 class Login extends Component {
 	userAuth = ( data ) => {
-		// console.log( data );
-		// this
-		// 	.props
-		// 	.userAuth({ role: data.role, name: data.name, imageUrl: data.imageUrl });
 		this
 			.props
-			.userAuth(data);
+			.userAuth( data );
 		setSession('google', JSON.stringify( data ))
 	}
 	componentDidMount( ) {
@@ -30,12 +26,7 @@ class Login extends Component {
 				const data = snapshot.val( );
 				this.userAuth( data )
 			} else {
-				firebaseRef_setUSER( response.profileObj.googleId ).set({
-					...response.profileObj,
-					role: '0',
-					nik: '0',
-					cabang: '0'
-				})
+				AKUN_SIGNUP( response.profileObj )
 			}
 		})
 	}

@@ -21,7 +21,6 @@ export const LIST_CABANG = (  ) => {
 	return tmp
 }
 export const GET_BARANG = (id) =>{
-	let result = null
 	fetch( 'https://appotek-ppl.firebaseio.com/barang/'+id+'.json' ).catch(err => {
 		alert( "Something went wrong, sorry :(" );
 		console.log( err )

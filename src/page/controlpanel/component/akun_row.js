@@ -1,12 +1,11 @@
 import React from 'react';
 import { Table, Button, Icon } from 'semantic-ui-react';
 import { UserRole } from '../../config';
+import {VALIDATION_ERROR_ATT, VALIDATION_NIK} from "../../component/func_lib";
 export const AkunRow = props => (
-	<Table.Row error={props.user.role !== UserRole[0] && props.user.role !== UserRole[1] && props.user.role !== UserRole[2]}>
+	<Table.Row error={VALIDATION_ERROR_ATT(props.user)}>
 		<Table.Cell>{props.user.email}</Table.Cell>
-		<Table.Cell>{props.user.nik !== '0'
-				? props.user.nik
-				: 'Illegal'}</Table.Cell>
+		<Table.Cell>{VALIDATION_NIK(props.user)}</Table.Cell>
 		<Table.Cell>{props.user.name}</Table.Cell>
 		<Table.Cell >{props.user.role === UserRole[0]
 				? 'Owner'

@@ -33,15 +33,15 @@ export const PanesHeader = {
 export const PanelHeader = {
 	margin: '10vh',
 	textAlign: 'center'
-}
+};
 export const SidebarFloatBTN = {
 	position: 'absolute',
 	display: 'inline-block',
 	left: '0px'
-}
+};
 export const StatusPanel = {
 	padding: '1vh',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center'
-}
+};

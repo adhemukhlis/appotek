@@ -20,11 +20,9 @@ class App extends Component {
 	};
 	userAuth = ( data ) => {
 		this.setState({ loggedAs: data.role, name: data.name, imageUrl: data.imageUrl, cabang:data.cabang })
-		// this.setState({ userdata: data})
 	};
 	logout = ( ) => {
 		this.setState({ loggedAs: null });
-		// this.setState({ userdata: null });
 		delSession( 'google' )
 	}
 	render( ) {

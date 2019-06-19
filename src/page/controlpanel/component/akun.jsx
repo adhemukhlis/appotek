@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { searchArrayTable } from "array-table-search";
 import { Header } from 'semantic-ui-react';
-import { firebaseRef_USER } from "../../../firebase/firebaseRef";
+import { firebaseRef_USER, AKUN_EDIT, AKUN_DELETE } from "../../../firebase/firebaseRef";
 import TableAkun from "./akun_table";
 import AkunEdit from "./akun_edit";
 import { PanelContainer, PanesHeader } from '../../style';
@@ -26,7 +26,7 @@ class Operasional extends Component {
 				})
 			});
 			this.setState({ users: users })
-		});
+		})
 	}
 	update = ( ) => {
 		const content = {
@@ -36,20 +36,10 @@ class Operasional extends Component {
 			role: this.state.selected_role,
 			cabang: this.state.selected_cabang
 		};
-		firebaseRef_USER
-			.child( this.state.selected_googleId )
-			.update( content )
-			.then(( ) => {
-				console.log( "Data saved successfully." )
-			})
-			.catch(( error ) => {
-				console.log( "Data could not be saved." + error )
-			})
+		AKUN_EDIT( this.state.selected_googleId, content )
 	}
 	delete = ( ) => {
-		firebaseRef_USER
-			.child( this.state.selected_googleId )
-			.remove( );
+		AKUN_DELETE( this.state.selected_googleId );
 		this.close( )
 	}
 	handleConfirm = ( ) => {
@@ -77,7 +67,7 @@ class Operasional extends Component {
 		const searchedTableData = searchArrayTable( users, searchOptionTable );
 		return (
 			<div style={PanelContainer}>
-				<AkunEdit _onSave={this.handleConfirm}  handleDropDownChange={this.handleDropDown} handleInputChange={this.handleInputChange} _delete={this.delete} _placeholder='email' _close={this.close} _keydelete={this.state.email} _headername={this.state.name} _open={this.state.open} _data={{
+				<AkunEdit _onSave={this.handleConfirm} handleDropDownChange={this.handleDropDown} handleInputChange={this.handleInputChange} _delete={this.delete} _placeholder='ID' _close={this.close} _keydelete={this.state.selected_googleId} _headername={this.state.selected_name} _open={this.state.open} _data={{
 					googleId: this.state.selected_googleId,
 					email: this.state.selected_email,
 					nik: this.state.selected_nik,

@@ -13,7 +13,7 @@ import { Redirect } from "react-router-dom";
 import Barang from "./component/barang";
 import { UANG, SUM, FULLDATE } from '../component/func_lib';
 import { TransaksiStyle, TransaksiSearchBar } from "../style";
-import { firebaseRef_CABANG_BARANG } from '../../firebase/firebaseRef';
+import { firebaseRef_CABANG_BARANG, CABANG_BARANG_EDIT } from '../../firebase/firebaseRef';
 class Transaksi extends Component {
 	state = {
 		fulldate: null,
@@ -49,9 +49,7 @@ class Transaksi extends Component {
 			harga: this.state.pembelian.harga[index],
 			stok: this.state.pembelian.stok[index] - this.state.pembelian.jumlah[index]
 		};
-		firebaseRef_CABANG_BARANG( this.props.userdata.cabang )
-			.child( content.id )
-			.update( content )
+		CABANG_BARANG_EDIT( content.id, this.props.userdata.cabang, content )
 	}
 	addToCart = ( item ) => {
 		console.log( item.id );

@@ -17,7 +17,6 @@ class PengeluaranEdit extends Component {
 			_new_data,
 			handleInputChange,
 			handleDropDownChange
-
 		} = this.props;
 		const FormContent = (
 			<Form>{_new_data
@@ -38,7 +37,7 @@ class PengeluaranEdit extends Component {
 						? 'Operasional'
 						: _data.jenis_pembelian === PengeluaranTypes[1]
 							? 'Barang'
-							:null} selection>
+							: null} selection>
 						<Dropdown.Menu >
 							<Dropdown.Item name='selected_jenis_pembelian' onClick={handleDropDownChange} text='Operasional' value={PengeluaranTypes[0]}/>
 							<Dropdown.Item name='selected_jenis_pembelian' onClick={handleDropDownChange} text='Barang' value={PengeluaranTypes[1]}/>

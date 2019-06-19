@@ -5,7 +5,7 @@ class PengeluaranTable extends Component {
 	render( ) {
 		const { _data, _show, handleInputChange, _search } = this.props;
 		return (
-			<Table celled selectable padded unstackable >
+			<Table celled selectable padded unstackable>
 				<Table.Header>
 					<Table.Row >
 						<Table.HeaderCell colSpan='9'>

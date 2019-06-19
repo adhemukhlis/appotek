@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { searchArrayTable, multiColumnSearchArrayTable } from "array-table-search";
-import { firebaseRef_BARANG } from "../../../firebase/firebaseRef";
+import { firebaseRef_BARANG, BARANG_ADD, BARANG_EDIT, BARANG_DELETE } from "../../../firebase/firebaseRef";
 import { Header } from 'semantic-ui-react';
 import DataBarangEdit from "./data_barang_edit";
 import TableDataBarang from "./data_barang_table";
@@ -34,28 +34,13 @@ class DataBarang extends Component {
 			desc: this.state.selected_desc
 		};
 		if ( this.state.new_data ) {
-			firebaseRef_BARANG
-				.child( this.state.new_id )
-				.set({
-					id: this.state.new_id,
-					...content
-				})
+			BARANG_ADD( this.state.new_id, content )
 		} else {
-			firebaseRef_BARANG
-				.child( this.state.selected_id )
-				.update( content )
-				.then(( ) => {
-					console.log( "Data saved successfully." )
-				})
-				.catch(( error ) => {
-					console.log( "Data could not be saved." + error )
-				})
+			BARANG_EDIT( this.state.selected_id, content )
 		}
 	}
 	delete = ( ) => {
-		firebaseRef_BARANG
-			.child( this.state.selected_id )
-			.remove( );
+		BARANG_DELETE( this.state.selected_id );
 		this.close( )
 	}
 	handleConfirm = ( ) => {
