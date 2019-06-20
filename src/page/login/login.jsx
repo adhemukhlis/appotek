@@ -9,13 +9,15 @@ import { LoginStyle, LoginTitle } from "../style";
 import { getSession, setSession } from "../component/func_lib";
 class Login extends Component {
 	userAuth = ( data ) => {
+		console.log(data);
 		this
 			.props
 			.userAuth( data );
 		setSession('google', JSON.stringify( data ))
 	}
-	componentDidMount( ) {
+	componentWillMount( ) {
 		const sessionData = getSession( 'google' );
+		console.log(sessionData);
 		if ( sessionData !== null ) {
 			this.userAuth(JSON.parse( sessionData ))
 		}

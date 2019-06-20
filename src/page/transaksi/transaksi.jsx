@@ -9,17 +9,20 @@ import {
 	Modal,
 	Table
 } from "semantic-ui-react";
+import Scanner from "../scanner/scanner";
 import { Redirect } from "react-router-dom";
 import Barang from "./component/barang";
 import { UANG, SUM, FULLDATE } from '../component/func_lib';
 import { TransaksiStyle, TransaksiSearchBar } from "../style";
-import { firebaseRef_CABANG_BARANG, CABANG_BARANG_EDIT } from '../../firebase/firebaseRef';
+import {searchArrayTable} from "array-table-search";
+import { firebaseRef_CABANG_BARANG, CABANG_BARANG_EDIT, firebaseRef_SEARCH } from '../../firebase/firebaseRef';
 class Transaksi extends Component {
 	state = {
 		fulldate: null,
 		paymentcode: 'xtadaaslgetaacx-v',
 		kasir: 'mukhlis',
 		cabang: 'purwokerto',
+		search:"",
 		pembelian: {
 			id: [],
 			item: [],
@@ -32,6 +35,11 @@ class Transaksi extends Component {
 		list_barang: [ ]
 	};
 	componentDidMount( ) {
+		firebaseRef_SEARCH.child('105341420100523661792').on('value', snap => {
+			
+			this.setState({ search: snap.val().search })
+			console.log(snap.val().search);
+		})
 		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
 			let tmp_barang = [ ];
 			snap.forEach(shotdata => {
@@ -117,16 +125,27 @@ class Transaksi extends Component {
 			.id
 			.map(( data, i ) => this.UpdateData( i ))
 	}
+	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
+
 	render( ) {
 		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}
-		const { tunai, list_barang } = this.state;
+		const { tunai, list_barang, search } = this.state;
+
+
+		const searchOptionTable = {
+			type: 'includes',
+			value: search
+		};
+		const searchedTableData = searchArrayTable( list_barang, searchOptionTable );
+
 		return (
 			<div style={TransaksiStyle}>
 				<div style={TransaksiSearchBar}>
-					<Input icon='search' placeholder='Search..'/>
+					<Input icon='search' value={search} name='search'onChange={this.handleInputChange} placeholder='ID'/>
+					<Scanner/>
 				</div>
 				<div style={{
 					marginBottom: '100px'
@@ -218,7 +237,7 @@ class Transaksi extends Component {
 					</Modal>
 				</div>
 				<Container>
-					<Card.Group itemsPerRow={4}>{list_barang.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
+					<Card.Group itemsPerRow={4}>{searchedTableData.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
 				</Container>
 			</div>
 		)

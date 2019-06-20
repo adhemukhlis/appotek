@@ -14,6 +14,7 @@ export const rootRef = firebase
 	.ref( );
 export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 export const firebaseRef_USER = rootRef.child( 'user' );
+export const firebaseRef_SEARCH = rootRef.child( 'search' );
 export const firebaseRef_GAJI = rootRef.child( 'gaji' );
 export const firebaseRef_CABANG = rootRef.child( 'cabang' );
 export const firebaseRef_OPERASIONAL = rootRef
@@ -53,11 +54,11 @@ export const GAJI_DELETE = ( id ) => {
 		.child( id )
 		.remove( )
 }
-export const CABANG_BARANG_ADD = ( id, cabang, content ) => {
+export const CABANG_BARANG_ADD = ( id_barang, cabang, content ) => {
 	firebaseRef_CABANG_BARANG( cabang )
-		.child( id )
+		.child( id_barang )
 		.set({
-			id: id,
+			id: id_barang,
 			...content
 		})
 }

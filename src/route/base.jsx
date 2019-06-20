@@ -26,12 +26,20 @@ class App extends Component {
 		delSession( 'google' )
 	}
 	render( ) {
+		const {loggedAs,name,imageUrl,cabang} = this.state
 		const user = {
-			role: this.state.loggedAs,
-			name: this.state.name,
-			imageUrl: this.state.imageUrl,
-			cabang:this.state.cabang
+			role: loggedAs,
+			name: name,
+			imageUrl: imageUrl,
+			cabang:'pwt'
 		};
+		{console.log(cabang);}
+		// const user = {
+		// 	role: 'kw',
+		// 	name: 'mukhlis',
+		// 	imageUrl: 'https://lh4.googleusercontent.com/-f_L1pSoX2W0/AAAAAAAAAAI/AAAAAAAAAo4/fh4YhxyDhao/s96-c/photo.jpg',
+		// 	cabang:'pwt'
+		// };
 		return (
 			<div>
 				<SideBar user={user} logout={this.logout}>
