@@ -14,6 +14,8 @@ export const rootRef = firebase
 	.ref( );
 export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 export const firebaseRef_USER = rootRef.child( 'user' );
+export const firebaseRef_TRANSAKSI = rootRef.child( 'transaksi' );
+export const firebaseRef_TRANSAKSI_ITEM = rootRef.child( 'transaksi_item' );
 export const firebaseRef_SEARCH = rootRef.child( 'search' );
 export const firebaseRef_GAJI = rootRef.child( 'gaji' );
 export const firebaseRef_CABANG = rootRef.child( 'cabang' );
@@ -26,6 +28,8 @@ export const firebaseRef_CABANG_BARANG = ( key ) => rootRef
 	.child( key );
 export const firebaseRef_BARANG = rootRef.child( 'barang' );
 export const firebaseRef_setUSER = ( googleid ) => firebaseRef_USER.child( googleid );
+export const firebaseRef_getTRANSAKSI_CABANG = ( cabang ) => firebaseRef_TRANSAKSI.orderByChild('cabang').equalTo(cabang);
+
 export const AKUN_SIGNUP = ( profileObj ) => {
 	firebaseRef_setUSER( profileObj.googleId ).set({
 		...profileObj,
@@ -55,6 +59,7 @@ export const GAJI_DELETE = ( id ) => {
 		.remove( )
 }
 export const CABANG_BARANG_ADD = ( id_barang, cabang, content ) => {
+	console.log(cabang);
 	firebaseRef_CABANG_BARANG( cabang )
 		.child( id_barang )
 		.set({

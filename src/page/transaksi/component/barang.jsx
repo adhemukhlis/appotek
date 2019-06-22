@@ -64,8 +64,7 @@ class Barang extends Component {
 					}}>{UANG( this.props.barang.harga )}</Label>
 					<Card.Header>{nama_barang}</Card.Header>
 					<Card.Meta>
-						<span className='date'>{'#' + this.props.barang.id}
-							/{desc}</span>
+						<span className='date'>{'#' + this.props.barang.id + ' - ' + desc}</span>
 					</Card.Meta>
 					<Card.Description>
 						<Input value={this.state.jumlahBeli + "/" + this.props.barang.stok} type='text' placeholder='qty..' fluid action>

@@ -1,3 +1,4 @@
+export const ErrorIssues = true ;
 export const UserRole = [ 'ow', 'kc', 'kw' ];
 export const PengeluaranTypes = ['operasional','barang'] 
 export const Cabang = [ 'jkt', 'pwt' ];
@@ -7,6 +8,8 @@ export const Path = {
 	Dev:'/dev',
 	//^experimental^
 	PageLogin: '/',
+	Scanner:'/scanner',
+	PageTransaksiData:'/transaksi-data',
 	PageTransaksi: '/transaksi',
 	PagePengeluaran: '/pengeluaran',
 	PagePresensi: '/presensi',

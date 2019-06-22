@@ -77,12 +77,16 @@ export const timestamp = ( ) => {
 			.toString( );
 	return ( year + month + _date + hours + minutes + seconds )
 }
-export const FULLDATE = ( ) => {
-	const date = new Date( );
-	return date.getFullYear( ) + '-' + date.getMonth( ) + '-' + date.getDate( ) + ' ' + date.getHours( ) + ':' + date.getMinutes( ) + ':' + date.getSeconds( )
+export const FULLDATE = ( date) => {
+	// const date = new Date( );
+	return moment(date).format('llll')
+	// return date.getFullYear( ) + '-' + date.getMonth( ) + '-' + date.getDate( ) + ' ' + date.getHours( ) + ':' + date.getMinutes( ) + ':' + date.getSeconds( )
 }
 export const VALIDATION_ERROR_ATT = ( user ) => {
 	return ( !UserRole.includes( user.role ) || user.cabang === 0 || user.nik === 0 )
+}
+export const VALIDATION_PAYMENT_PROCESS = (tunai, harga) => {
+	return (tunai === ''||tunai<harga)
 }
 export const VALIDATION_NIK = ( user ) => {
 	return ( user.nik === 0

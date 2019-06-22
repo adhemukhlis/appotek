@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {
 	Input,
 	Card,
@@ -9,20 +9,26 @@ import {
 	Modal,
 	Table
 } from "semantic-ui-react";
-import Scanner from "../scanner/scanner";
 import { Redirect } from "react-router-dom";
 import Barang from "./component/barang";
-import { UANG, SUM, FULLDATE } from '../component/func_lib';
+import { UANG, SUM, FULLDATE, VALIDATION_PAYMENT_PROCESS } from '../component/func_lib';
 import { TransaksiStyle, TransaksiSearchBar } from "../style";
-import {searchArrayTable} from "array-table-search";
-import { firebaseRef_CABANG_BARANG, CABANG_BARANG_EDIT, firebaseRef_SEARCH } from '../../firebase/firebaseRef';
+import { searchArrayTable } from "array-table-search";
+import {
+	firebaseRef_CABANG_BARANG,
+	CABANG_BARANG_EDIT,
+	firebaseRef_SEARCH,
+	firebaseRef_TRANSAKSI,
+	TIMESTAMP,
+	firebaseRef_TRANSAKSI_ITEM
+} from '../../firebase/firebaseRef';
 class Transaksi extends Component {
 	state = {
 		fulldate: null,
 		paymentcode: 'xtadaaslgetaacx-v',
 		kasir: 'mukhlis',
-		cabang: 'purwokerto',
-		search:"",
+		cabang: 'pwt',
+		search: "",
 		pembelian: {
 			id: [],
 			item: [],
@@ -31,15 +37,28 @@ class Transaksi extends Component {
 			total: [],
 			stok: [ ]
 		},
-		tunai: 0,
+		tunai: "",
 		list_barang: [ ]
 	};
+	inputRef = createRef( );
+	handleClick = ( ) => this
+		.inputRef
+		.current
+		.focus( );
 	componentDidMount( ) {
-		firebaseRef_SEARCH.child('105341420100523661792').on('value', snap => {
-			
-			this.setState({ search: snap.val().search })
-			console.log(snap.val().search);
-		})
+		firebaseRef_SEARCH
+			.child( this.props.userdata.nik )
+			.update({ search: '' });
+		firebaseRef_SEARCH
+			.child( this.props.userdata.nik )
+			.on('value', snap => {
+				this.setState({
+					search: snap
+						.val( )
+						.search
+				});
+				console.log( snap.val( ).search )
+			});
 		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
 			let tmp_barang = [ ];
 			snap.forEach(shotdata => {
@@ -57,29 +76,49 @@ class Transaksi extends Component {
 			harga: this.state.pembelian.harga[index],
 			stok: this.state.pembelian.stok[index] - this.state.pembelian.jumlah[index]
 		};
+		firebaseRef_TRANSAKSI_ITEM
+			.child( this.state.paymentcode )
+			.child( content.id )
+			.set({id: this.state.pembelian.id[index], nama_barang: this.state.pembelian.item[index],harga: this.state.pembelian.harga[index], jumlah: this.state.pembelian.jumlah[index], total: this.state.pembelian.total[index]});
 		CABANG_BARANG_EDIT( content.id, this.props.userdata.cabang, content )
 	}
 	addToCart = ( item ) => {
 		console.log( item.id );
+		console.log(this.state.pembelian.id.includes( item.id ));
 		let TMP_cart = this.state.pembelian;
-		TMP_cart
-			.id
-			.push( item.id );
-		TMP_cart
-			.item
-			.push( item.item );
-		TMP_cart
-			.jumlah
-			.push( item.jumlah );
-		TMP_cart
-			.harga
-			.push( item.harga );
-		TMP_cart
-			.stok
-			.push( item.stok );
-		TMP_cart
-			.total
-			.push( item.total );
+		if (this.state.pembelian.id.includes( item.id )) {
+			console.log(this.state.pembelian.id.indexOf( item.id ));
+			let tmp_jumlah = this.state.pembelian.jumlah;
+			let tmp_total = this.state.pembelian.total;
+			const index = this
+				.state
+				.pembelian
+				.id
+				.indexOf( item.id );
+			tmp_total[index] = tmp_total[index] + item.total;
+			tmp_jumlah[index] = tmp_jumlah[index] + item.jumlah;
+			console.log( tmp_total );
+			console.log( tmp_jumlah )
+		} else {
+			TMP_cart
+				.id
+				.push( item.id );
+			TMP_cart
+				.item
+				.push( item.item );
+			TMP_cart
+				.jumlah
+				.push( item.jumlah );
+			TMP_cart
+				.harga
+				.push( item.harga );
+			TMP_cart
+				.stok
+				.push( item.stok );
+			TMP_cart
+				.total
+				.push( item.total )
+		}
 		this.setState({ pembelian: TMP_cart })
 	}
 	deleteFunc = ( index, arr ) => {
@@ -99,10 +138,17 @@ class Transaksi extends Component {
 			stok: this.deleteFunc( index, pembelian.stok ),
 			total: this.deleteFunc( index, pembelian.total )
 		};
-		this.setState({ pembelian: tmp_pembelian })
+		this.setState({ pembelian: tmp_pembelian });
+		this.handleClick( )
 	}
 	open = ( ) => {
-		this.setState({fulldate: FULLDATE( )})
+		const date = new Date( ).getTime( );
+		this.setState({ fulldate: date });
+		console.log( date );
+		const paycode = firebaseRef_TRANSAKSI
+			.push( )
+			.key;
+		this.setState({ paymentcode: paycode })
 	}
 	inputTunai = (e, { value }) => this.setState({ tunai: value });
 	shortHand = ( Value ) => {
@@ -111,46 +157,48 @@ class Transaksi extends Component {
 		})
 	}
 	payproc = ( ) => {
+		const total = SUM( this.state.pembelian.total );
+		const tunai = parseInt( this.state.tunai );
 		const payment = {
 			paymentcode: this.state.paymentcode,
 			kasir: this.state.kasir,
 			cabang: this.state.cabang,
-			tunai: this.state.tunai,
-			...this.state.pembelian
+			tunai: tunai,
+			total: total,
+			kembali: tunai - total,
+			datetime: this.state.fulldate
 		};
 		console.log( payment );
 		this
 			.state
 			.pembelian
 			.id
-			.map(( data, i ) => this.UpdateData( i ))
+			.map(( data, i ) => this.UpdateData( i ));
+		firebaseRef_TRANSAKSI
+			.child( payment.paymentcode )
+			.set( payment )
 	}
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
-
 	render( ) {
 		const { legalAccess } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}
 		const { tunai, list_barang, search } = this.state;
-
-
 		const searchOptionTable = {
 			type: 'includes',
 			value: search
 		};
 		const searchedTableData = searchArrayTable( list_barang, searchOptionTable );
-
 		return (
 			<div style={TransaksiStyle}>
 				<div style={TransaksiSearchBar}>
-					<Input icon='search' value={search} name='search'onChange={this.handleInputChange} placeholder='ID'/>
-					<Scanner/>
+					<Input icon='search' value={search} name='search' onChange={this.handleInputChange} placeholder='ID'/>
 				</div>
 				<div style={{
 					marginBottom: '100px'
 				}}>
-					<Modal trigger={(
+					<Modal onMount={this.handleClick} trigger={(
 						<Button as='div' labelPosition='left' onClick={( ) => this.open( )}>
 							<Label as='a' basic pointing='right'>
 								{UANG(SUM( this.state.pembelian.total ))}
@@ -167,23 +215,23 @@ class Transaksi extends Component {
 								<Table celled>
 									<Table.Header>
 										<Table.Row>
-											<Table.HeaderCell>Kode Transaksi</Table.HeaderCell>
-											<Table.HeaderCell colSpan='4'>{this.state.paymentcode}-v</Table.HeaderCell>
-										</Table.Row>
-										<Table.Row>
-											<Table.HeaderCell>Kasir</Table.HeaderCell>
-											<Table.HeaderCell colSpan='4'>{this.state.kasir}</Table.HeaderCell>
-										</Table.Row>
-										<Table.Row>
 											<Table.HeaderCell>Cabang</Table.HeaderCell>
 											<Table.HeaderCell colSpan='4'>{this.state.cabang}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
-											<Table.HeaderCell>Date Time</Table.HeaderCell>
-											<Table.HeaderCell colSpan='4'>{this.state.fulldate}</Table.HeaderCell>
+											<Table.HeaderCell>Kode Transaksi</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.paymentcode}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
-											<Table.HeaderCell textAlign='center'>Barang</Table.HeaderCell>
+											<Table.HeaderCell>NIK Kasir</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.kasir}</Table.HeaderCell>
+										</Table.Row>
+										<Table.Row>
+											<Table.HeaderCell>Waktu</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{FULLDATE( this.state.fulldate )}</Table.HeaderCell>
+										</Table.Row>
+										<Table.Row>
+											<Table.HeaderCell textAlign='center'>Pembelian</Table.HeaderCell>
 											<Table.HeaderCell textAlign='center'>QTY</Table.HeaderCell>
 											<Table.HeaderCell textAlign='center'>Harga</Table.HeaderCell>
 											<Table.HeaderCell textAlign='center'>Total</Table.HeaderCell>
@@ -195,7 +243,7 @@ class Transaksi extends Component {
 											.pembelian
 											.item
 											.map(( item, i ) => (
-												<Table.Row>
+												<Table.Row key={i}>
 													<Table.Cell>{this.state.pembelian.item[i]}</Table.Cell>
 													<Table.Cell>{this.state.pembelian.jumlah[i]}</Table.Cell>
 													<Table.Cell textAlign='right'>{UANG(this.state.pembelian.harga[i])}</Table.Cell>
@@ -214,7 +262,7 @@ class Transaksi extends Component {
 										<Table.Row>
 											<Table.Cell active>Tunai</Table.Cell>
 											<Table.Cell textAlign='right' active colSpan='4'>
-												<Input fluid placeholder='Tunai' name='selected_gaji' value={tunai} onChange={this.inputTunai} label={{
+												<Input fluid placeholder='Tunai' ref={this.inputRef} value={tunai} onChange={this.inputTunai} label={{
 													tag: true,
 													content: UANG( tunai )
 												}} labelPosition='right'/>
@@ -229,7 +277,7 @@ class Transaksi extends Component {
 							</Modal.Description>
 						</Modal.Content>
 						<Modal.Actions>
-							<Button primary onClick={( ) => this.payproc( )}>
+							<Button disabled={VALIDATION_PAYMENT_PROCESS(tunai, SUM( this.state.pembelian.total ))} primary onClick={( ) => this.payproc( )}>
 								Proceed
 								<Icon name='chevron right'/>
 							</Button>
@@ -237,7 +285,7 @@ class Transaksi extends Component {
 					</Modal>
 				</div>
 				<Container>
-					<Card.Group itemsPerRow={4}>{searchedTableData.map(val => ( <Barang addToCart={this.addToCart} barang={val}/> ))}</Card.Group>
+					<Card.Group itemsPerRow={4}>{searchedTableData.map(( val, i ) => ( <Barang addToCart={this.addToCart} key={i} barang={val}/> ))}</Card.Group>
 				</Container>
 			</div>
 		)

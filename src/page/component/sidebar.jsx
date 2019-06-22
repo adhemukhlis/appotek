@@ -17,7 +17,8 @@ import {
 	Ic_s_user_crown,
 	Ic_s_user_cog,
 	Ic_s_users_cog,
-	Ic_s_user
+	Ic_s_user,
+	Ic_s_cash_register
 } from './react-icon-svg';
 import {
 	white,
@@ -52,6 +53,10 @@ class SideBar extends Component {
 						<Menu.Item href={'/#' + Path.PagePemasukan}>
 							<Ic_s_chart_line height={SideBarIconSize} fill={white}/>
 							<p>Pemasukan</p>
+						</Menu.Item>
+						<Menu.Item href={'/#' + Path.PageTransaksiData}>
+							<Ic_s_cash_register height={SideBarIconSize} fill={white}/>
+							<p>Transaksi</p>
 						</Menu.Item>
 						<Menu.Item href={'/#' + Path.PagePengeluaran}>
 							<Ic_s_arrow_alt_from_left height={SideBarIconSize} fill={white}/>
