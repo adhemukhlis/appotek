@@ -17,7 +17,7 @@ class Pengeluaran extends Component {
 		selected_cabang: null,
 		selected_satuan: null,
 		new_data: null,
-		search: null
+		search: ""
 	};
 	componentWillMount( ) {
 		firebaseRef_PENGELUARAN.on('value', snap => {

@@ -35,7 +35,7 @@ class TransaksiItem extends Component {
 						<p key={i}>{data.jumlah}</p>
 					))}</Table.Cell>
 			), (
-				<Table.Cell key='3'>{item.map(( data, i ) => (
+				<Table.Cell textAlign='right' key='3'>{item.map(( data, i ) => (
 						<p key={i}>{UANG( data.harga )}</p>
 					))}</Table.Cell>
 			)])

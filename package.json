@@ -12,6 +12,7 @@
     "react-barcode-reader": "0.0.1",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.3",
+    "react-firebase-file-uploader": "^2.4.2",
     "react-google-login": "^5.0.3",
     "react-qr-scanner": "0.0.8",
     "react-router-dom": "^4.3.1",

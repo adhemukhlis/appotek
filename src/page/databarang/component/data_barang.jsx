@@ -48,6 +48,7 @@ class DataBarang extends Component {
 		this.close( )
 	}
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
+	handleUploadImage = (value) => this.setState({ selected_img: value });
 	show = ( data ) => {
 		if ( data === "new" ) {
 			this.setState({
@@ -89,7 +90,7 @@ class DataBarang extends Component {
 			<div style={PanelContainer}>
 				<DataBarangEdit _validation={new_data
 					? Validation1
-					: false} _exist_ID={ExistID} _new_data={new_data} _onSave={this.handleConfirm} handleInputChange={this.handleInputChange} _delete={this.delete} _placeholder='kode barang' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_nama_barang} _open={this.state.open} _data={{
+					: false} _exist_ID={ExistID} _new_data={new_data} _onSave={this.handleConfirm} handleInputChange={this.handleInputChange} handleUploadImage={this.handleUploadImage} _delete={this.delete} _placeholder='kode barang' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_nama_barang} _open={this.state.open} _data={{
 					id: this.state.selected_id,
 					nama_barang: this.state.selected_nama_barang,
 					desc: this.state.selected_desc,

@@ -1,7 +1,32 @@
 import React, { Component } from 'react';
 import EditPopup from "../../editpopup/editpopup";
-import { Form, Input } from 'semantic-ui-react';
+import { rootRefStore } from "../../../firebase/firebaseRef";
+import FileUploader from "react-firebase-file-uploader";
+import { Form, Input, Image } from 'semantic-ui-react';
 class DataBarangEdit extends Component {
+	state = {
+		isUploading: false,
+		progress: 0,
+		tmpUrl: ""
+	};
+	
+	handleUploadStart = ( ) => this.setState({ isUploading: true, progress: 0 });
+	handleUploadError = error => {
+		this.setState({ isUploading: false });
+		console.error( error )
+	};
+	handleUploadSuccess = filename => {
+		console.log( filename );
+		this
+			.props
+			.handleUploadImage( filename );
+		this.setState({ avatar: filename, progress: 100, isUploading: false });
+		rootRefStore
+			.child( filename )
+			.getDownloadURL( )
+			.then(url => this.setState({ tmpUrl: url }))
+	};
+	handleProgress = progress => this.setState({ progress });
 	render( ) {
 		const {
 			_data,
@@ -19,6 +44,13 @@ class DataBarangEdit extends Component {
 		} = this.props;
 		const FormContent = (
 			<Form>
+				<Form.Field>
+					<label>Gambar</label>{this.state.isUploading && (
+						<p>Progress:{this.state.progress}</p>
+					)}{this.state.tmpUrl && ( <Image src={this.state.tmpUrl} centered/> )}
+					<FileUploader accept="image/*" name="avatar" maxHeight={228} maxWidth={266} randomizeFilename storageRef={rootRefStore} onUploadStart={this.handleUploadStart} onUploadError={this.handleUploadError} onUploadSuccess={this.handleUploadSuccess} onProgress={this.handleProgress}/>
+					<Input placeholder='Filename' name='selected_img' value={_data.img} readOnly/>
+				</Form.Field>
 				<Form.Field error={_exist_ID.length > 0 && _new_data}>
 					<label>kode</label>
 					<Input name='new_id' onChange={handleInputChange} readOnly={!_new_data} value={_data.id}/>

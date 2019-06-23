@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Card, Input, Button, Image, Label } from "semantic-ui-react";
 import { UANG } from "../../component/func_lib";
-import { firebaseRef_BARANG } from '../../../firebase/firebaseRef';
+import { firebaseRef_BARANG, rootRefStore } from '../../../firebase/firebaseRef';
 class Barang extends Component {
 	state = {
 		jumlahBeli: 1,
 		desc: null,
 		nama_barang: null,
-		imgUrl: null
+		filename: null,
+		imgUrl:null
 	};
 	componentWillMount( ) {
 		firebaseRef_BARANG
@@ -20,10 +21,14 @@ class Barang extends Component {
 					nama_barang: data
 						.val( )
 						.nama_barang,
-					imgUrl: data
+					filename: data
 						.val( )
 						.img
-				})
+				});
+				rootRefStore
+					.child( data.val().img )
+					.getDownloadURL( )
+					.then(url => this.setState({ imgUrl: url }))
 			})
 	}
 	plusFunc = ( ) => {
@@ -57,7 +62,7 @@ class Barang extends Component {
 		const { desc, nama_barang, imgUrl } = this.state;
 		return (
 			<Card>
-				<Image src={'https://appotek.netlify.com/static/media/' + imgUrl}/>
+				{this.state.imgUrl && ( <Image src={imgUrl}/>)}
 				<Card.Content>
 					<Label as='a' color='red' ribbon style={{
 						marginBottom: "10px"

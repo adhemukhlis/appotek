@@ -13,24 +13,24 @@ class DataTransaksiTable extends Component {
 						</Table.HeaderCell>
 					</Table.Row>
 					<Table.Row>
-						<Table.HeaderCell rowSpan='2' >kode</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2' >waktu</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2' >kasir</Table.HeaderCell>
-						<Table.HeaderCell colSpan='4'>pembelian</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2' >total</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2' >tunai</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2' >kembali</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2'  textAlign='center'><Icon name='settings'/></Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Transaksi ID</Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Waktu</Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Kasir</Table.HeaderCell>
+						<Table.HeaderCell colSpan='4' textAlign='center'>Pembelian</Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Total</Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2'collapsing textAlign='center'>Tunai</Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Kembali</Table.HeaderCell>
+						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'><Icon name='settings'/></Table.HeaderCell>
 					</Table.Row>
 					<Table.Row>
-						<Table.HeaderCell>id</Table.HeaderCell>
-						<Table.HeaderCell>barang</Table.HeaderCell>
-						<Table.HeaderCell>jumlah</Table.HeaderCell>
-						<Table.HeaderCell>harga</Table.HeaderCell>
+						<Table.HeaderCell textAlign='center' collapsing>id</Table.HeaderCell>
+						<Table.HeaderCell textAlign='center'>Barang</Table.HeaderCell>
+						<Table.HeaderCell textAlign='center' collapsing>Jumlah</Table.HeaderCell>
+						<Table.HeaderCell textAlign='center' collapsing>Harga</Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
-				<Table.Body>{_data.map( ( data, n ) =><DataTransaksiRow  key = {
-						data.paymentcode+n
+				<Table.Body>{_data.map( ( data, n ) =>< DataTransaksiRow key = {
+						data.paymentcode + n
 					}
 					_show = {
 						_show

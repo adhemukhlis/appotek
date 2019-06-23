@@ -11,7 +11,7 @@ class DataTransaksiRow extends Component {
 		const { data } = this.props;
 		return (
 			<Table.Row>
-				<Table.Cell>#{data.paymentcode}</Table.Cell>
+				<Table.Cell>{data.paymentcode}</Table.Cell>
 				<Table.Cell>{ShortDate( data.datetime )}</Table.Cell>
 				<Table.Cell>{data.kasir}</Table.Cell>{show
 					? <TransItem transaksi={data.paymentcode}/>
@@ -20,9 +20,9 @@ class DataTransaksiRow extends Component {
 							show: !show
 						})}>Show detail</Button>
 					</Table.Cell>}
-				<Table.Cell>{UANG( data.total )}</Table.Cell>
-				<Table.Cell>{UANG( data.tunai )}</Table.Cell>
-				<Table.Cell>{UANG( data.kembali )}</Table.Cell>
+				<Table.Cell textAlign='right'>{UANG( data.total )}</Table.Cell>
+				<Table.Cell textAlign='right'>{UANG( data.tunai )}</Table.Cell>
+				<Table.Cell textAlign='right'>{UANG( data.kembali )}</Table.Cell>
 				<Table.Cell >
 					<Button icon onClick={( ) => this.props._show( this.props.data )}>
 						<Icon name='edit outline'/>

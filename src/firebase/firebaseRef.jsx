@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/storage';
 const config = {
 	apiKey: "AIzaSyAsqkUcNYLmolN1x3DwDw7B_UjKz_ZdwAg",
 	authDomain: "appotek-ppl.firebaseapp.com",
@@ -12,6 +13,9 @@ firebase.initializeApp( config );
 export const rootRef = firebase
 	.database( )
 	.ref( );
+export const rootRefStore = firebase
+	.storage( )
+	.ref( "images" );
 export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 export const firebaseRef_USER = rootRef.child( 'user' );
 export const firebaseRef_TRANSAKSI = rootRef.child( 'transaksi' );
@@ -28,8 +32,9 @@ export const firebaseRef_CABANG_BARANG = ( key ) => rootRef
 	.child( key );
 export const firebaseRef_BARANG = rootRef.child( 'barang' );
 export const firebaseRef_setUSER = ( googleid ) => firebaseRef_USER.child( googleid );
-export const firebaseRef_getTRANSAKSI_CABANG = ( cabang ) => firebaseRef_TRANSAKSI.orderByChild('cabang').equalTo(cabang);
-
+export const firebaseRef_getTRANSAKSI_CABANG = ( cabang ) => firebaseRef_TRANSAKSI
+	.orderByChild( 'cabang' )
+	.equalTo( cabang );
 export const AKUN_SIGNUP = ( profileObj ) => {
 	firebaseRef_setUSER( profileObj.googleId ).set({
 		...profileObj,
@@ -39,8 +44,7 @@ export const AKUN_SIGNUP = ( profileObj ) => {
 	})
 }
 export const AKUN_EDIT = ( googleId, content ) => {
-	firebaseRef_setUSER( googleId )
-		.update( content )
+	firebaseRef_setUSER( googleId ).update( content )
 }
 export const AKUN_DELETE = ( googleId ) => {
 	firebaseRef_setUSER( googleId ).remove( )
@@ -59,7 +63,7 @@ export const GAJI_DELETE = ( id ) => {
 		.remove( )
 }
 export const CABANG_BARANG_ADD = ( id_barang, cabang, content ) => {
-	console.log(cabang);
+	console.log( cabang );
 	firebaseRef_CABANG_BARANG( cabang )
 		.child( id_barang )
 		.set({
