@@ -47,3 +47,15 @@ export const GET_BARANG = (id) =>{
 			return parsedRes;
 		});
 }
+export const GET_CABANG_TOKO = (id) =>{
+	fetch( 'https://appotek-ppl.firebaseio.com/cabang/'+id+'/detail_nama_cabang.json' ).catch(err => {
+		alert( "Something went wrong, sorry :(" );
+		console.log( err )
+	})
+		.then(res => res.json( ))
+		.then(parsedRes => {
+			console.log(parsedRes.val());
+			console.log("woy");
+			// return parsedRes;
+		});
+}

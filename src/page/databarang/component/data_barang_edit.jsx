@@ -63,10 +63,6 @@ class DataBarangEdit extends Component {
 					<label>Desc</label>
 					<Input placeholder='Desc' name='selected_desc' value={_data.desc} onChange={handleInputChange}/>
 				</Form.Field>
-				<Form.Field>
-					<label>Filename</label>
-					<Input placeholder='Filename' name='selected_img' value={_data.img} onChange={handleInputChange}/>
-				</Form.Field>
 			</Form>
 		);
 		return ( <EditPopup _validation={_validation} _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )

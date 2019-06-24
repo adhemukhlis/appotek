@@ -19,15 +19,18 @@ import {
 	CABANG_BARANG_EDIT,
 	firebaseRef_SEARCH,
 	firebaseRef_TRANSAKSI,
-	TIMESTAMP,
-	firebaseRef_TRANSAKSI_ITEM
+	firebaseRef_TRANSAKSI_ITEM,
+	firebaseRef_CABANG
 } from '../../firebase/firebaseRef';
+import { GET_CABANG_TOKO } from '../../firebase/firebaseREST';
 class Transaksi extends Component {
 	state = {
+		modalOpen: false,
 		fulldate: null,
 		paymentcode: 'xtadaaslgetaacx-v',
 		kasir: 'mukhlis',
 		cabang: 'pwt',
+		cabang_toko: null,
 		search: "",
 		pembelian: {
 			id: [],
@@ -46,6 +49,14 @@ class Transaksi extends Component {
 		.current
 		.focus( );
 	componentDidMount( ) {
+		firebaseRef_CABANG
+			.child( this.props.userdata.cabang )
+			.child( 'detail_nama_cabang' )
+			.on('value', snap => {
+				this.setState({
+					cabang_toko: snap.val( )
+				})
+			});
 		firebaseRef_SEARCH
 			.child( this.props.userdata.nik )
 			.update({ search: '' });
@@ -79,7 +90,7 @@ class Transaksi extends Component {
 		firebaseRef_TRANSAKSI_ITEM
 			.child( this.state.paymentcode )
 			.child( content.id )
-			.set({id: this.state.pembelian.id[index], nama_barang: this.state.pembelian.item[index],harga: this.state.pembelian.harga[index], jumlah: this.state.pembelian.jumlah[index], total: this.state.pembelian.total[index]});
+			.set({id: this.state.pembelian.id[index], nama_barang: this.state.pembelian.item[index], harga: this.state.pembelian.harga[index], jumlah: this.state.pembelian.jumlah[index], total: this.state.pembelian.total[index]});
 		CABANG_BARANG_EDIT( content.id, this.props.userdata.cabang, content )
 	}
 	addToCart = ( item ) => {
@@ -143,12 +154,10 @@ class Transaksi extends Component {
 	}
 	open = ( ) => {
 		const date = new Date( ).getTime( );
-		this.setState({ fulldate: date });
-		console.log( date );
 		const paycode = firebaseRef_TRANSAKSI
 			.push( )
 			.key;
-		this.setState({ paymentcode: paycode })
+		this.setState({ fulldate: date, paymentcode: paycode, modalOpen: true })
 	}
 	inputTunai = (e, { value }) => this.setState({ tunai: value });
 	shortHand = ( Value ) => {
@@ -156,13 +165,26 @@ class Transaksi extends Component {
 			tunai: this.state.tunai + Value
 		})
 	}
+	handleClose = ( ) => this.setState({ modalOpen: false });
+	clear = ( ) => {
+		const clr_pembelian = {
+			id: [],
+			item: [],
+			jumlah: [],
+			harga: [],
+			total: [],
+			stok: [ ]
+		};
+		this.setState({ tunai: "", pembelian: clr_pembelian })
+	}
 	payproc = ( ) => {
 		const total = SUM( this.state.pembelian.total );
 		const tunai = parseInt( this.state.tunai );
 		const payment = {
 			paymentcode: this.state.paymentcode,
-			kasir: this.state.kasir,
-			cabang: this.state.cabang,
+			kasir: this.props.userdata.nik,
+			cabang: this.props.userdata.cabang,
+			cabang_toko: this.state.cabang_toko,
 			tunai: tunai,
 			total: total,
 			kembali: tunai - total,
@@ -176,7 +198,9 @@ class Transaksi extends Component {
 			.map(( data, i ) => this.UpdateData( i ));
 		firebaseRef_TRANSAKSI
 			.child( payment.paymentcode )
-			.set( payment )
+			.set( payment );
+		this.handleClose( );
+		this.clear( )
 	}
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
 	render( ) {
@@ -198,7 +222,7 @@ class Transaksi extends Component {
 				<div style={{
 					marginBottom: '100px'
 				}}>
-					<Modal onMount={this.handleClick} trigger={(
+					<Modal open={this.state.modalOpen} onClose={this.handleClose} onMount={this.handleClick} trigger={(
 						<Button as='div' labelPosition='left' onClick={( ) => this.open( )}>
 							<Label as='a' basic pointing='right'>
 								{UANG(SUM( this.state.pembelian.total ))}
@@ -216,7 +240,7 @@ class Transaksi extends Component {
 									<Table.Header>
 										<Table.Row>
 											<Table.HeaderCell>Cabang</Table.HeaderCell>
-											<Table.HeaderCell colSpan='4'>{this.state.cabang}</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.state.cabang_toko}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
 											<Table.HeaderCell>Kode Transaksi</Table.HeaderCell>
@@ -224,7 +248,7 @@ class Transaksi extends Component {
 										</Table.Row>
 										<Table.Row>
 											<Table.HeaderCell>NIK Kasir</Table.HeaderCell>
-											<Table.HeaderCell colSpan='4'>{this.state.kasir}</Table.HeaderCell>
+											<Table.HeaderCell colSpan='4'>{this.props.userdata.nik}</Table.HeaderCell>
 										</Table.Row>
 										<Table.Row>
 											<Table.HeaderCell>Waktu</Table.HeaderCell>
