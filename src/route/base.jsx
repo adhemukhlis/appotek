@@ -22,10 +22,7 @@ class App extends Component {
 		nik: null
 	};
 	componentWillMount( ) {
-		const date = new Date("2018-08-22T00:00:00+0000" ).getTime( );
-		console.log(date);
 		const sessionData = getSession( 'google' );
-		console.log( sessionData );
 		if ( sessionData !== null ) {
 			console.log( 'yes' );
 			this.userAuth(JSON.parse( sessionData ))

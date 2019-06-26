@@ -1,36 +1,12 @@
 import React, { Component } from 'react';
 import { Card, Input, Button, Image, Label } from "semantic-ui-react";
 import { UANG } from "../../component/func_lib";
-import { firebaseRef_BARANG, rootRefStore } from '../../../firebase/firebaseRef';
+
 class Barang extends Component {
 	state = {
-		jumlahBeli: 1,
-		desc: null,
-		nama_barang: null,
-		filename: null,
-		imgUrl:null
+		jumlahBeli: 1
 	};
-	componentWillMount( ) {
-		firebaseRef_BARANG
-			.child( this.props.barang.id )
-			.on('value', data => {
-				this.setState({
-					desc: data
-						.val( )
-						.desc,
-					nama_barang: data
-						.val( )
-						.nama_barang,
-					filename: data
-						.val( )
-						.img
-				});
-				rootRefStore
-					.child( data.val().img )
-					.getDownloadURL( )
-					.then(url => this.setState({ imgUrl: url }))
-			})
-	}
+
 	plusFunc = ( ) => {
 		if ( this.state.jumlahBeli < this.props.barang.stok ) {
 			this.setState({
@@ -45,10 +21,11 @@ class Barang extends Component {
 			})
 		}
 	}
+
 	addToChart = ( ) => {
 		const item = {
 			id: this.props.barang.id,
-			item: this.state.nama_barang,
+			item: this.props.nama_barang,
 			jumlah: this.state.jumlahBeli,
 			harga: this.props.barang.harga,
 			stok: this.props.barang.stok,
@@ -59,17 +36,16 @@ class Barang extends Component {
 			.addToCart( item )
 	}
 	render( ) {
-		const { desc, nama_barang, imgUrl } = this.state;
 		return (
 			<Card>
-				{this.state.imgUrl && ( <Image src={imgUrl}/>)}
+				{this.props.barang.img && ( <Image src={this.props.barang.img}/>)}
 				<Card.Content>
 					<Label as='a' color='red' ribbon style={{
 						marginBottom: "10px"
 					}}>{UANG( this.props.barang.harga )}</Label>
-					<Card.Header>{nama_barang}</Card.Header>
+					<Card.Header>{this.props.barang.nama_barang}</Card.Header>
 					<Card.Meta>
-						<span className='date'>{'#' + this.props.barang.id + ' - ' + desc}</span>
+						<span className='date'>{'#' + this.props.barang.id + ' - ' + this.props.barang.desc}</span>
 					</Card.Meta>
 					<Card.Description>
 						<Input value={this.state.jumlahBeli + "/" + this.props.barang.stok} type='text' placeholder='qty..' fluid action>

@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
+
 class App extends Component {
-	state = {
-		inputVal: 'oke'
-	};
-	handleChange = (event ) => {
-		this.setState({ inputVal: event.target.value })
-	}
 	render( ) {
-		const { inputVal } = this.state;
+		const TampilanDepan =  {display:'flex', alignItems:'center', justifyContent:'center', height:'100vh'};
+		let ukuran = 20
 		return (
-			<div>
-				<input type="text" value={inputVal} onChange={this.handleChange}/>
-				<button onClick={( ) => alert( this.state.inputVal )}>{this.state.inputVal}</button>
+			<div style={}>
+				<img src={} />
 			</div>
 		)
 	}

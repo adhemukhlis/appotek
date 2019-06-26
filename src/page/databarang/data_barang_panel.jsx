@@ -16,9 +16,7 @@ class PanelBarang extends Component {
 			firebaseRef_CABANG_BARANG( cbg ).on('value', snap => {
 				let tmp_barang = [ ];
 				snap.forEach(shotdata => {
-					firebaseRef_BARANG
-						.child( shotdata.key )
-						.on('value', data => {
+					firebaseRef_BARANG.child( shotdata.key ).on('value', data => {
 							tmp_barang.push({
 								...shotdata.val( ),
 								...data.val( )

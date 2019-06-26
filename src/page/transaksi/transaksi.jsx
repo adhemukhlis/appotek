@@ -13,16 +13,17 @@ import { Redirect } from "react-router-dom";
 import Barang from "./component/barang";
 import { UANG, SUM, FULLDATE, VALIDATION_PAYMENT_PROCESS } from '../component/func_lib';
 import { TransaksiStyle, TransaksiSearchBar } from "../style";
-import { searchArrayTable } from "array-table-search";
+import { multiColumnSearchArrayTable } from "array-table-search";
 import {
 	firebaseRef_CABANG_BARANG,
 	CABANG_BARANG_EDIT,
 	firebaseRef_SEARCH,
 	firebaseRef_TRANSAKSI,
 	firebaseRef_TRANSAKSI_ITEM,
-	firebaseRef_CABANG
+	firebaseRef_CABANG,
+	firebaseRef_BARANG,
+	rootRefStore
 } from '../../firebase/firebaseRef';
-import { GET_CABANG_TOKO } from '../../firebase/firebaseREST';
 class Transaksi extends Component {
 	state = {
 		modalOpen: false,
@@ -73,12 +74,23 @@ class Transaksi extends Component {
 		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
 			let tmp_barang = [ ];
 			snap.forEach(shotdata => {
-				tmp_barang.push({
-					id: shotdata.key,
-					...shotdata.val( )
-				})
+				firebaseRef_BARANG
+					.child( shotdata.key )
+					.on('value', data => {
+						rootRefStore
+							.child( data.val( ).img )
+							.getDownloadURL( )
+							.then(url => {
+								tmp_barang.push({
+									...shotdata.val( ),
+									...data.val( ),
+									img: url
+								});
+								this.setState({ list_barang: tmp_barang })
+							})
+					})
 			});
-			this.setState({ list_barang: tmp_barang })
+			console.log( tmp_barang )
 		})
 	}
 	UpdateData = ( index ) => {
@@ -210,10 +222,12 @@ class Transaksi extends Component {
 		}
 		const { tunai, list_barang, search } = this.state;
 		const searchOptionTable = {
-			type: 'includes',
-			value: search
+			id: {
+				type: 'includes',
+				value: search
+			}
 		};
-		const searchedTableData = searchArrayTable( list_barang, searchOptionTable );
+		const searchedTableData = multiColumnSearchArrayTable( list_barang, searchOptionTable );
 		return (
 			<div style={TransaksiStyle}>
 				<div style={TransaksiSearchBar}>

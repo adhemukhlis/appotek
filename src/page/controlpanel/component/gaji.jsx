@@ -49,7 +49,7 @@ class Operasional extends Component {
 		this.close( )
 	}
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
-	close = ( ) => this.setState({ open: false });
+close = ( ) => this.setState({ open: false });
 	handleDropDown = (e, { name, value }) => this.setState({ [ name ]: value });
 	show = ( gaji ) => {
 		if ( gaji === "new" ) {

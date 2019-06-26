@@ -18,9 +18,11 @@ class App extends Component {
 	render( ) {
 		const { loaded } = this.state;
 		return (
-			<HashRouter>{loaded
+			<HashRouter>
+				{loaded
 					? ( <BaseLayout/> )
-					: ( <Loader/> )}</HashRouter>
+					: ( <Loader/> )}
+			</HashRouter>
 		)
 	}
 }

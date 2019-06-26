@@ -1,0 +1,37 @@
+Creating an optimized production build...
+Compiled with warnings.
+
+./src/page/transaksi/transaksi_data.jsx
+  Line 14:  Expected to return a value in arrow function  array-callback-return
+
+./src/page/databarang/data_barang_panel.jsx
+  Line 15:  Expected to return a value in arrow function  array-callback-return
+
+./src/page/component/float_menu.jsx
+  Line 20:  Imported JSX component Ic_r_times must be in PascalCase
+react/jsx-pascal-case
+  Line 21:  Imported JSX component Ic_r_bars must be in PascalCase
+react/jsx-pascal-case
+
+./src/page/transaksi/transaksi.jsx
+  Line 25:  'GET_CABANG_TOKO' is defined but never used  no-unused-vars
+
+./src/page/editpopup/editpopup.jsx
+  Line 37:  Expected '===' and instead saw '=='  eqeqeq
+  Line 41:  Expected '===' and instead saw '=='  eqeqeq
+
+./src/page/component/sidebar.jsx
+  Line 54:    Imported JSX component Ic_s_chart_line must be in PascalCase                                               react/jsx-pascal-case
+  Line 58:    Imported JSX component Ic_s_cash_register must be in PascalCase                                            react/jsx-pascal-case
+  Line 62:    Imported JSX component Ic_s_arrow_alt_from_left must be in PascalCase                                      react/jsx-pascal-case
+  Line 66:    Imported JSX component Ic_s_pallet must be in PascalCase                                                   react/jsx-pascal-case
+  Line 70:    Imported JSX component Ic_s_id_card must be in PascalCase                                                  react/jsx-pascal-case
+  Line 75:   Imported JSX component Ic_s_users_cog must be in PascalCase                                                react/jsx-pascal-case
+  Line 101:  img elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+  Line 103:  Imported JSX component Ic_s_user_crown must be in PascalCase                                               react/jsx-pascal-case
+  Line 105:  Imported JSX component Ic_s_user_cog must be in PascalCase                                                 react/jsx-pascal-case
+  Line 106:  Imported JSX component Ic_s_user must be in PascalCase
+                                                   react/jsx-pascal-case
+
+./src/page/transaksi/component/data_transaksi_cabang.jsx
+  Line 63:  'new_data' is assigned a value but never used  no-unused-vars
