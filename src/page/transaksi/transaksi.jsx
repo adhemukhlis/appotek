@@ -49,7 +49,33 @@ class Transaksi extends Component {
 		.inputRef
 		.current
 		.focus( );
+	Load = ( ) => {
+		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
+			let tmp_barang = [ ];
+			snap.forEach(shotdata => {
+				firebaseRef_BARANG
+					.child( shotdata.key )
+					.on('value', data => {
+						rootRefStore
+							.child( data.val( ).img )
+							.getDownloadURL( )
+							.then(url => {
+								tmp_barang.push({
+									...shotdata.val( ),
+									...data.val( ),
+									img: url
+								});
+								this.setState({ list_barang: tmp_barang })
+							})
+					})
+			})
+		})
+	}
 	componentDidMount( ) {
+		this.Load( );
+		firebaseRef_BARANG.on('child_changed', data => {
+			this.Load( )
+		});
 		firebaseRef_CABANG
 			.child( this.props.userdata.cabang )
 			.child( 'detail_nama_cabang' )
@@ -70,28 +96,7 @@ class Transaksi extends Component {
 						.search
 				});
 				console.log( snap.val( ).search )
-			});
-		firebaseRef_CABANG_BARANG( this.props.userdata.cabang ).on('value', snap => {
-			let tmp_barang = [ ];
-			snap.forEach(shotdata => {
-				firebaseRef_BARANG
-					.child( shotdata.key )
-					.on('value', data => {
-						rootRefStore
-							.child( data.val( ).img )
-							.getDownloadURL( )
-							.then(url => {
-								tmp_barang.push({
-									...shotdata.val( ),
-									...data.val( ),
-									img: url
-								});
-								this.setState({ list_barang: tmp_barang })
-							})
-					})
-			});
-			console.log( tmp_barang )
-		})
+			})
 	}
 	UpdateData = ( index ) => {
 		const content = {
@@ -231,6 +236,7 @@ class Transaksi extends Component {
 		return (
 			<div style={TransaksiStyle}>
 				<div style={TransaksiSearchBar}>
+					<Button as='a' icon='photo' href="/#/scanner"/>
 					<Input icon='search' value={search} name='search' onChange={this.handleInputChange} placeholder='ID'/>
 				</div>
 				<div style={{

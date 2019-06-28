@@ -23,11 +23,11 @@ class DataTransaksiRow extends Component {
 				<Table.Cell textAlign='right'>{UANG( data.total )}</Table.Cell>
 				<Table.Cell textAlign='right'>{UANG( data.tunai )}</Table.Cell>
 				<Table.Cell textAlign='right'>{UANG( data.kembali )}</Table.Cell>
-				<Table.Cell >
+				{/* <Table.Cell >
 					<Button icon onClick={( ) => this.props._show( this.props.data )}>
 						<Icon name='edit outline'/>
 					</Button>
-				</Table.Cell>
+				</Table.Cell> */}
 			</Table.Row>
 		)
 	}

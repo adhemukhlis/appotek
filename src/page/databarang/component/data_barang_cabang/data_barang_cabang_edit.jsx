@@ -45,7 +45,7 @@ class DataBarangEdit extends Component {
 				</Form.Field>
 			</Form>
 		);
-		return ( <EditPopup _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
 	}
 }
 export default DataBarangEdit;

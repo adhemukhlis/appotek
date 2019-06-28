@@ -8,7 +8,7 @@ class DataTransaksiTable extends Component {
 			<Table celled selectable padded unstackable structured>
 				<Table.Header>
 					<Table.Row >
-						<Table.HeaderCell colSpan='11'>
+						<Table.HeaderCell colSpan='10'>
 							<Input floated="left" icon='search' placeholder='Search' name='search' value={_search} onChange={handleInputChange}/>
 						</Table.HeaderCell>
 					</Table.Row>
@@ -20,11 +20,11 @@ class DataTransaksiTable extends Component {
 						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Total</Table.HeaderCell>
 						<Table.HeaderCell rowSpan='2'collapsing textAlign='center'>Tunai</Table.HeaderCell>
 						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'>Kembali</Table.HeaderCell>
-						<Table.HeaderCell rowSpan='2' collapsing textAlign='center'><Icon name='settings'/></Table.HeaderCell>
+						{/* <Table.HeaderCell rowSpan='2' collapsing textAlign='center'><Icon name='settings'/></Table.HeaderCell> */}
 					</Table.Row>
 					<Table.Row>
 						<Table.HeaderCell textAlign='center' collapsing>id</Table.HeaderCell>
-						<Table.HeaderCell textAlign='center'>Barang</Table.HeaderCell>
+						<Table.HeaderCell >Barang</Table.HeaderCell>
 						<Table.HeaderCell textAlign='center' collapsing>Jumlah</Table.HeaderCell>
 						<Table.HeaderCell textAlign='center' collapsing>Harga</Table.HeaderCell>
 					</Table.Row>

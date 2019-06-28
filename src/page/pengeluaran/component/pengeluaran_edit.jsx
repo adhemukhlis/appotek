@@ -15,6 +15,7 @@ class PengeluaranEdit extends Component {
 			_onSave,
 			_delete,
 			_new_data,
+			_validation_kc,
 			handleInputChange,
 			handleDropDownChange
 		} = this.props;
@@ -46,7 +47,7 @@ class PengeluaranEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>Cabang</label>
-					<Input name='selected_cabang' onChange={handleInputChange} placeholder='Cabang' value={_data.cabang}/>
+					<Input name='selected_cabang' onChange={handleInputChange} placeholder='Cabang' value={_validation_kc==='all'?_data.cabang:_validation_kc} readOnly={_validation_kc==='jkt'||_validation_kc==='jkt'}/>
 				</Form.Field>
 				<Form.Field>
 					<label>QTY</label>

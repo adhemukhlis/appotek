@@ -88,6 +88,7 @@ class Pengeluaran extends Component {
 	close = ( ) => this.setState({ open: false });
 	render( ) {
 		const { operasional, search, new_data } = this.state;
+		const { validation_kc} =this.props
 		const searchOptionTable = {
 			type: 'includes',
 			value: search
@@ -95,7 +96,7 @@ class Pengeluaran extends Component {
 		const searchedTableData = searchArrayTable( operasional, searchOptionTable );
 		return (
 			<div style={PanelContainer}>
-				<PengeluaranEdit handleDropDownChange={this.handleDropDown} _new_data={new_data} _onSave={this.handleConfirm} handleInputChange={this.handleInputChange} _delete={this.delete} _placeholder='kode pembelian' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_pembelian} _open={this.state.open} _data={{
+				<PengeluaranEdit _validation_kc={validation_kc} handleDropDownChange={this.handleDropDown} _new_data={new_data} _onSave={this.handleConfirm} handleInputChange={this.handleInputChange} _delete={this.delete} _placeholder='kode pembelian' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_pembelian} _open={this.state.open} _data={{
 					id: this.state.selected_id,
 					pembelian: this.state.selected_pembelian,
 					qty: this.state.selected_qty,

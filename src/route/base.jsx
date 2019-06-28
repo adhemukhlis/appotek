@@ -51,11 +51,11 @@ class App extends Component {
 					<Route path={Path.Scanner} component= { ( ) =>< Scanner legalAccess={this.state.loggedAs===UserRole[2]} userdata={user} />}/>
 					<Route path={Path.PageLogin} exact component= { ( ) =>< PageLogin userAuth={this.userAuth} loggedAs={this.state.loggedAs}/>}/>
 					<Route path={Path.PageTransaksi} component= { ( ) =>< PageTransaksi legalAccess={this.state.loggedAs===UserRole[2]} userdata={user} />}/>
-					<Route path={Path.PagePengeluaran} component= { ( ) =>< PagePengeluaran legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]} />}/>
-					<Route path={Path.PageTransaksiData} component= { ( ) =>< PageTransaksiData legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]} />}/>
-					<Route path={Path.PagePresensi} component= { ( ) =>< PagePresensi legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+					<Route path={Path.PagePengeluaran} component= { ( ) =>< PagePengeluaran legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]} userdata={user}  />}/>
+					<Route path={Path.PageTransaksiData} component= { ( ) =>< PageTransaksiData legalAccess = {this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1]}  />}/>
+					{/* <Route path={Path.PagePresensi} component= { ( ) =>< PagePresensi legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/> */}
 					<Route path={Path.PageControlPanel} component= { ( ) =>< PageControlPanel legalAccess = { this.state.loggedAs === UserRole[0] } /> }/>
-					<Route path={Path.PageDataBarang} component= { ( ) =>< PageDataBarang legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
+					<Route path={Path.PageDataBarang} component= { ( ) =>< PageDataBarang legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } userdata={user} /> }/>
 					<Route path={Path.PagePemasukan} component= { ( ) =>< PagePemasukan legalAccess = { this.state.loggedAs === UserRole[0] || this.state.loggedAs === UserRole[1] } /> }/>
 				</SideBar>
 			</div>

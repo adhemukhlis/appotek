@@ -5,7 +5,7 @@ import Pengeluaran from "./component/pengeluaran";
 import { PanelHeader } from '../style';
 class PanelPengeluaran extends Component {
 	render( ) {
-		const { legalAccess } = this.props;
+		const { legalAccess, userdata } = this.props;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}
@@ -16,7 +16,7 @@ class PanelPengeluaran extends Component {
 						PENGELUARAN
 					</Header>
 				</div>
-				<Pengeluaran/>
+				<Pengeluaran validation_kc={userdata.cabang}/>
 			</div>
 		)
 	}

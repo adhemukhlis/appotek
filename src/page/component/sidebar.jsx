@@ -66,10 +66,11 @@ class SideBar extends Component {
 							<Ic_s_pallet height={SideBarIconSize} fill={white}/>
 							<p>Barang</p>
 						</Menu.Item>
-						<Menu.Item href={'/#' + Path.PagePresensi}>
+						{/* <Menu.Item href={'/#' + Path.PagePresensi}>
 							<Ic_s_id_card height={SideBarIconSize} fill={white}/>
 							<p>Karyawan</p>
-						</Menu.Item>{user.role === UserRole[0]
+						</Menu.Item> */}
+						{user.role === UserRole[0]
 							? (
 								<Menu.Item href={'/#' + Path.PageControlPanel}>
 									<Ic_s_users_cog height={SideBarIconSize} fill={white}/>
