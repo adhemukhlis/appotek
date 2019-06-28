@@ -9,7 +9,6 @@ class DataBarangEdit extends Component {
 		progress: 0,
 		tmpUrl: ""
 	};
-	
 	handleUploadStart = ( ) => this.setState({ isUploading: true, progress: 0 });
 	handleUploadError = error => {
 		this.setState({ isUploading: false });
@@ -47,9 +46,9 @@ class DataBarangEdit extends Component {
 				<Form.Field>
 					<label>Gambar</label>{this.state.isUploading && (
 						<p>Progress:{this.state.progress}</p>
-					)}{this.state.tmpUrl && ( <Image src={this.state.tmpUrl} centered/> )}
-					<FileUploader accept="image/*" name="avatar" maxHeight={228} maxWidth={266} randomizeFilename storageRef={rootRefStore} onUploadStart={this.handleUploadStart} onUploadError={this.handleUploadError} onUploadSuccess={this.handleUploadSuccess} onProgress={this.handleProgress}/>
+					)}{this.state.tmpUrl && ( <Image src={this.state.tmpUrl} centered/> )}{!_new_data && _data.url && ( <Image src={_data.url} centered/> )}
 					<Input placeholder='Filename' name='selected_img' value={_data.img} readOnly/>
+					<FileUploader accept="image/*" name="avatar" maxHeight={228} maxWidth={266} randomizeFilename storageRef={rootRefStore} onUploadStart={this.handleUploadStart} onUploadError={this.handleUploadError} onUploadSuccess={this.handleUploadSuccess} onProgress={this.handleProgress}/>
 				</Form.Field>
 				<Form.Field error={_exist_ID.length > 0 && _new_data}>
 					<label>kode</label>

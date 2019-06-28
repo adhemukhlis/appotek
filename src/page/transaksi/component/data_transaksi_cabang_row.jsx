@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { UANG, ShortDate } from "../../component/func_lib";
-import { Table, Button, Icon } from 'semantic-ui-react';
+import { Table, Button } from 'semantic-ui-react';
 import TransItem from "./transaksi_item";
 class DataTransaksiRow extends Component {
 	state = {
@@ -23,11 +23,6 @@ class DataTransaksiRow extends Component {
 				<Table.Cell textAlign='right'>{UANG( data.total )}</Table.Cell>
 				<Table.Cell textAlign='right'>{UANG( data.tunai )}</Table.Cell>
 				<Table.Cell textAlign='right'>{UANG( data.kembali )}</Table.Cell>
-				{/* <Table.Cell >
-					<Button icon onClick={( ) => this.props._show( this.props.data )}>
-						<Icon name='edit outline'/>
-					</Button>
-				</Table.Cell> */}
 			</Table.Row>
 		)
 	}

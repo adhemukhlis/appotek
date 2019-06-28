@@ -28,9 +28,9 @@ class Transaksi extends Component {
 	state = {
 		modalOpen: false,
 		fulldate: null,
-		paymentcode: 'xtadaaslgetaacx-v',
-		kasir: 'mukhlis',
-		cabang: 'pwt',
+		paymentcode: null,
+		kasir: null,
+		cabang: null,
 		cabang_toko: null,
 		search: "",
 		pembelian: {

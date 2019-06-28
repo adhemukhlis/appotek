@@ -9,21 +9,12 @@ import { LoginStyle, LoginTitle } from "../style";
 import { setSession } from "../component/func_lib";
 class Login extends Component {
 	userAuth = ( data ) => {
-		console.log(data);
+		console.log( data );
 		this
 			.props
 			.userAuth( data );
 		setSession('google', JSON.stringify( data ))
 	}
-	// componentWillMount( ) {
-	// 	console.log("yes1");
-	// 	const sessionData = getSession( 'google' );
-	// 	console.log(sessionData);
-	// 	if ( sessionData !== null ) {
-	// 		console.log('yes');
-	// 		this.userAuth(JSON.parse( sessionData ))
-	// 	}
-	// }
 	responseGoogle = ( response ) => {
 		firebaseRef_setUSER( response.profileObj.googleId ).once('value', snapshot => {
 			if (snapshot.exists( )) {

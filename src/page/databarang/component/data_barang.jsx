@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { searchArrayTable, multiColumnSearchArrayTable } from "array-table-search";
-import { firebaseRef_BARANG, BARANG_ADD, BARANG_EDIT, BARANG_DELETE } from "../../../firebase/firebaseRef";
+import { firebaseRef_BARANG, BARANG_ADD, BARANG_EDIT, BARANG_DELETE, rootRefStore } from "../../../firebase/firebaseRef";
 import { Header } from 'semantic-ui-react';
 import DataBarangEdit from "./data_barang_edit";
 import TableDataBarang from "./data_barang_table";
@@ -12,6 +12,7 @@ class DataBarang extends Component {
 		selected_nama_barang: null,
 		selected_desc: null,
 		selected_img: null,
+		selected_imgurl: null,
 		search: null,
 		new_data: null,
 		new_id: ''
@@ -48,7 +49,7 @@ class DataBarang extends Component {
 		this.close( )
 	}
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
-	handleUploadImage = (value) => this.setState({ selected_img: value });
+	handleUploadImage = ( value ) => this.setState({ selected_img: value });
 	show = ( data ) => {
 		if ( data === "new" ) {
 			this.setState({
@@ -60,14 +61,21 @@ class DataBarang extends Component {
 				new_data: true
 			})
 		} else {
-			this.setState({
-				selected_id: data.id,
-				selected_nama_barang: data.nama_barang,
-				selected_desc: data.desc,
-				selected_img: data.img,
-				open: true,
-				new_data: false
-			})
+			rootRefStore
+				.child( data.img )
+				.getDownloadURL( )
+				.then(url => {
+					this.setState({
+						selected_id: data.id,
+						selected_nama_barang: data.nama_barang,
+						selected_desc: data.desc,
+						selected_img: data.img,
+						selected_imgurl: url,
+						open: true,
+						new_data: false
+					})
+				});
+			
 		}
 	};
 	close = ( ) => this.setState({ open: false });
@@ -94,7 +102,8 @@ class DataBarang extends Component {
 					id: this.state.selected_id,
 					nama_barang: this.state.selected_nama_barang,
 					desc: this.state.selected_desc,
-					img: this.state.selected_img
+					img: this.state.selected_img,
+					url: this.state.selected_imgurl
 				}}/>
 				<Header style={PanesHeader} as='h1'>Data Barang</Header>
 				<TableDataBarang _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>

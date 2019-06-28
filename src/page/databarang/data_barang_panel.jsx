@@ -11,11 +11,13 @@ class PanelBarang extends Component {
 		jkt: [],
 		pwt: [ ]
 	};
-	Load=(cbg)=>{
+	Load = ( cbg ) => {
 		firebaseRef_CABANG_BARANG( cbg ).on('value', snap => {
 			let tmp_barang = [ ];
 			snap.forEach(shotdata => {
-				firebaseRef_BARANG.child( shotdata.key ).on('value', data => {
+				firebaseRef_BARANG
+					.child( shotdata.key )
+					.on('value', data => {
 						tmp_barang.push({
 							...shotdata.val( ),
 							...data.val( )
@@ -27,26 +29,23 @@ class PanelBarang extends Component {
 	}
 	LoadAll = ( ) => {
 		Cabang.map(cbg => {
-			this.Load(cbg)
+			this.Load( cbg )
 		})
 	}
 	componentDidMount( ) {
-		console.log(this.props.userdata);
-		if(this.props.userdata.role==='kc'){
-			console.log('ini');
-			this.Load(this.props.userdata.cabang)
+		console.log( this.props.userdata );
+		if ( this.props.userdata.role === 'kc' ) {
+			console.log( 'ini' );
+			this.Load( this.props.userdata.cabang );
 			firebaseRef_BARANG.on('child_changed', data => {
-				this.Load(this.props.userdata.cabang)
+				this.Load( this.props.userdata.cabang )
 			})
 		} else {
-			console.log('bukan');
-			// this.LoadAll( );
-			// firebaseRef_BARANG.on('child_changed', data => {
-			// 	this.LoadAll()
-			// })
+			this.LoadAll( this.props.userdata.cabang );
+			firebaseRef_BARANG.on('child_changed', data => {
+				this.LoadAll( this.props.userdata.cabang )
+			})
 		}
-		
-		
 	}
 	render( ) {
 		const { legalAccess, userdata } = this.props;
@@ -55,20 +54,26 @@ class PanelBarang extends Component {
 			render: ( ) => (
 				<Tab.Pane><DataBarang/></Tab.Pane>
 			)
-		}
-		const TAB_CABANG_JKT =  {
+		};
+		const TAB_CABANG_JKT = {
 			menuItem: CabangFull[0],
 			render: ( ) => (
 				<Tab.Pane><DataBarangCabang nama_cabang={CabangFull[0]} data_barang={this.state.jkt} id_cabang={Cabang[0]}/></Tab.Pane>
 			)
-		}
-		const TAB_CABANG_PWT =  {
+		};
+		const TAB_CABANG_PWT = {
 			menuItem: CabangFull[1],
-				render: ( ) => (
-					<Tab.Pane><DataBarangCabang nama_cabang={CabangFull[1]} data_barang={this.state.pwt} id_cabang={Cabang[1]}/></Tab.Pane>
-				)
-		}
-		const panes = userdata.cabang==='all'?[TAB_DATA_BARANG,TAB_CABANG_JKT,TAB_CABANG_PWT]:userdata.cabang==='jkt'?[TAB_DATA_BARANG,TAB_CABANG_JKT]:userdata.cabang==='pwt'?[TAB_DATA_BARANG,TAB_CABANG_PWT]:null
+			render: ( ) => (
+				<Tab.Pane><DataBarangCabang nama_cabang={CabangFull[1]} data_barang={this.state.pwt} id_cabang={Cabang[1]}/></Tab.Pane>
+			)
+		};
+		const panes = userdata.cabang === 'all'
+			? [ TAB_DATA_BARANG, TAB_CABANG_JKT, TAB_CABANG_PWT ]
+			: userdata.cabang === 'jkt'
+				? [ TAB_DATA_BARANG, TAB_CABANG_JKT ]
+				: userdata.cabang === 'pwt'
+					? [ TAB_DATA_BARANG, TAB_CABANG_PWT ]
+					: null;
 		if ( !legalAccess ) {
 			return <Redirect push to='/'/>
 		}
