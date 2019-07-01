@@ -41,8 +41,8 @@ class DataBarangCabang extends Component {
 			this.setState({
 				selected_id: null,
 				selected_nama_barang: null,
-				selected_stok: null,
-				selected_harga: null,
+				selected_stok: '',
+				selected_harga: '',
 				open: true,
 				new_data: true
 			})

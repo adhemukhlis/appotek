@@ -4,6 +4,7 @@ import { Form, Input, Dropdown } from 'semantic-ui-react';
 import DropdownCabang from "./dropdown_cabang";
 import { LIST_CABANG } from "../../../firebase/firebaseREST";
 import { UserRole } from '../../config';
+import { VALIDATION_CP_AKUN } from '../../component/func_lib';
 class AkunEdit extends Component {
 	state = {
 		cabang: LIST_CABANG( )
@@ -34,7 +35,7 @@ class AkunEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>NIK</label>
-					<Input placeholder='NIK' name='selected_nik' value={_data.nik} onChange={handleInputChange}/>
+					<Input type='number' placeholder='NIK' name='selected_nik' value={_data.nik} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Name</label>
@@ -62,7 +63,7 @@ class AkunEdit extends Component {
 				</Form.Field>
 			</Form>
 		);
-		return ( <EditPopup _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent} _validation={VALIDATION_CP_AKUN(_data)}/> )
 	}
 }
 export default AkunEdit;

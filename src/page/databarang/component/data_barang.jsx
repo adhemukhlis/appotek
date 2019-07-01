@@ -54,8 +54,8 @@ class DataBarang extends Component {
 		if ( data === "new" ) {
 			this.setState({
 				selected_id: null,
-				selected_nama_barang: null,
-				selected_desc: null,
+				selected_nama_barang: '',
+				selected_desc: '',
 				selected_img: null,
 				open: true,
 				new_data: true
@@ -96,9 +96,7 @@ class DataBarang extends Component {
 		const Validation1 = !( ExistID.length < 1 );
 		return (
 			<div style={PanelContainer}>
-				<DataBarangEdit _validation={new_data
-					? Validation1
-					: false} _exist_ID={ExistID} _new_data={new_data} _onSave={this.handleConfirm} handleInputChange={this.handleInputChange} handleUploadImage={this.handleUploadImage} _delete={this.delete} _placeholder='kode barang' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_nama_barang} _open={this.state.open} _data={{
+				<DataBarangEdit _exist_data={Validation1} _new_data={new_data} _onSave={this.handleConfirm} handleInputChange={this.handleInputChange} handleUploadImage={this.handleUploadImage} _delete={this.delete} _placeholder='kode barang' _close={this.close} _keydelete={this.state.selected_id} _headername={this.state.selected_nama_barang} _open={this.state.open} _data={{
 					id: this.state.selected_id,
 					nama_barang: this.state.selected_nama_barang,
 					desc: this.state.selected_desc,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditPopup from "../../../editpopup/editpopup";
 import { Form, Input } from 'semantic-ui-react';
-import { UANG } from "../../../component/func_lib";
+import { UANG, VALIDATION_BRG_CABANG } from "../../../component/func_lib";
 import DataID from "../dropdown_id";
 class DataBarangEdit extends Component {
 	render( ) {
@@ -34,18 +34,18 @@ class DataBarangEdit extends Component {
 					)}
 				<Form.Field>
 					<label>Stok</label>
-					<Input placeholder='Stok' name='selected_stok' value={_data.stok} onChange={handleInputChange}/>
+					<Input type='number'placeholder='Stok' name='selected_stok' value={_data.stok} onChange={handleInputChange}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Harga</label>
-					<Input placeholder='Harga' name='selected_harga' value={_data.harga} onChange={handleInputChange} label={{
+					<Input type='number' placeholder='Harga' name='selected_harga' value={_data.harga} onChange={handleInputChange} label={{
 						tag: true,
 						content: UANG( _data.harga )
 					}} labelPosition='right'/>
 				</Form.Field>
 			</Form>
 		);
-		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent} _validation={VALIDATION_BRG_CABANG(_data)}/> )
 	}
 }
 export default DataBarangEdit;

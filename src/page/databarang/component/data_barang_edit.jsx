@@ -3,6 +3,7 @@ import EditPopup from "../../editpopup/editpopup";
 import { rootRefStore } from "../../../firebase/firebaseRef";
 import FileUploader from "react-firebase-file-uploader";
 import { Form, Input, Image } from 'semantic-ui-react';
+import { VALIDATION_BRG } from '../../component/func_lib';
 class DataBarangEdit extends Component {
 	state = {
 		isUploading: false,
@@ -37,8 +38,7 @@ class DataBarangEdit extends Component {
 			_onSave,
 			_delete,
 			_new_data,
-			_exist_ID,
-			_validation,
+			_exist_data,
 			handleInputChange
 		} = this.props;
 		const FormContent = (
@@ -50,7 +50,7 @@ class DataBarangEdit extends Component {
 					<Input placeholder='Filename' name='selected_img' value={_data.img} readOnly/>
 					<FileUploader accept="image/*" name="avatar" maxHeight={228} maxWidth={266} randomizeFilename storageRef={rootRefStore} onUploadStart={this.handleUploadStart} onUploadError={this.handleUploadError} onUploadSuccess={this.handleUploadSuccess} onProgress={this.handleProgress}/>
 				</Form.Field>
-				<Form.Field error={_exist_ID.length > 0 && _new_data}>
+				<Form.Field error={_exist_data && _new_data}>
 					<label>kode</label>
 					<Input name='new_id' onChange={handleInputChange} readOnly={!_new_data} value={_data.id}/>
 				</Form.Field>
@@ -64,7 +64,7 @@ class DataBarangEdit extends Component {
 				</Form.Field>
 			</Form>
 		);
-		return ( <EditPopup _validation={_validation} _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _validation={VALIDATION_BRG(_exist_data,_new_data,_data)} _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
 	}
 }
 export default DataBarangEdit;

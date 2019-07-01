@@ -39,8 +39,8 @@ class Pengeluaran extends Component {
 			satuan: this.state.selected_satuan,
 			cabang: this.state.selected_cabang,
 			datetime: TIMESTAMP,
-			qty: this.state.selected_qty,
-			harga: this.state.selected_harga
+			qty: parseInt(this.state.selected_qty),
+			harga: parseInt(this.state.selected_harga)
 		};
 		if ( this.state.new_data ) {
 			PENGELUARAN_ADD( content )
@@ -62,10 +62,10 @@ class Pengeluaran extends Component {
 		if ( data === "new" ) {
 			this.setState({
 				selected_id: null,
-				selected_pembelian: null,
-				selected_qty: null,
-				selected_harga: null,
-				selected_jenis_pembelian: null,
+				selected_pembelian: '',
+				selected_qty: '',
+				selected_harga: '',
+				selected_jenis_pembelian: '',
 				selected_cabang: data.cabang,
 				selected_satuan: data.satuan,
 				open: true,
@@ -75,7 +75,7 @@ class Pengeluaran extends Component {
 			this.setState({
 				selected_id: data.id,
 				selected_pembelian: data.pembelian,
-				selected_qty: data.qty,
+				selected_qty: parseInt,
 				selected_harga: data.harga,
 				selected_jenis_pembelian: data.jenis_pembelian,
 				selected_cabang: data.cabang,

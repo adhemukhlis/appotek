@@ -31,7 +31,7 @@ class Operasional extends Component {
 	update = ( ) => {
 		const content = {
 			cabang: this.state.selected_cabang,
-			gaji: this.state.selected_gaji,
+			gaji: parseInt(this.state.selected_gaji),
 			jabatan: this.state.selected_jabatan
 		};
 		if ( this.state.selected_id !== null ) {
@@ -49,7 +49,7 @@ class Operasional extends Component {
 		this.close( )
 	}
 	handleInputChange = (e, { name, value }) => this.setState({ [ name ]: value });
-close = ( ) => this.setState({ open: false });
+	close = ( ) => this.setState({ open: false });
 	handleDropDown = (e, { name, value }) => this.setState({ [ name ]: value });
 	show = ( gaji ) => {
 		if ( gaji === "new" ) {
@@ -57,7 +57,7 @@ close = ( ) => this.setState({ open: false });
 				selected_id: null,
 				selected_jabatan: null,
 				selected_cabang: 'all',
-				selected_gaji: null,
+				selected_gaji: '',
 				open: true,
 				new_data: true
 			})

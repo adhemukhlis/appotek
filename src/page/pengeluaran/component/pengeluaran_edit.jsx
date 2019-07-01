@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditPopup from "../../editpopup/editpopup";
 import { Form, Input, Dropdown } from 'semantic-ui-react';
-import { UANG } from "../../component/func_lib";
+import { UANG, VALIDATION_PENGELUARAN } from "../../component/func_lib";
 import { PengeluaranTypes } from '../../config';
 class PengeluaranEdit extends Component {
 	render( ) {
@@ -25,7 +25,7 @@ class PengeluaranEdit extends Component {
 					: (
 						<Form.Field >
 							<label>kode</label>
-							<Input name='selected_id' onChange={handleInputChange} placeholder='Kode pembelian' value={_data.id}/>
+							<Input name='selected_id' onChange={handleInputChange} placeholder='Kode pembelian' value={_data.id} readOnly/>
 						</Form.Field>
 					)}
 				<Form.Field>
@@ -51,7 +51,7 @@ class PengeluaranEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>QTY</label>
-					<Input name='selected_qty' onChange={handleInputChange} value={_data.qty} placeholder='Banyak Barang'/>
+					<Input type='number' name='selected_qty' onChange={handleInputChange} value={_data.qty} placeholder='Banyak Barang'/>
 				</Form.Field>
 				<Form.Field>
 					<label>Satuan</label>
@@ -59,21 +59,21 @@ class PengeluaranEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>Harga</label>
-					<Input value={_data.harga} name='selected_harga' onChange={handleInputChange} placeholder='Harga beli' label={{
+					<Input type='number' value={_data.harga} name='selected_harga' onChange={handleInputChange} placeholder='Harga beli' label={{
 						tag: true,
 						content: UANG( _data.harga )
 					}} labelPosition='right'/>
 				</Form.Field>
 				<Form.Field>
 					<label>Total</label>
-					<Input value={_data.qty * _data.harga} readOnly label={{
+					<Input type='number' value={_data.qty * _data.harga} readOnly label={{
 						tag: true,
 						content: UANG( _data.qty * _data.harga )
 					}} labelPosition='right'/>
 				</Form.Field>
 			</Form>
 		);
-		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent} _validation={VALIDATION_PENGELUARAN(_data)}/> )
 	}
 }
 export default PengeluaranEdit;

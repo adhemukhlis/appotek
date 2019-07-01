@@ -93,3 +93,19 @@ export const VALIDATION_NIK = ( user ) => {
 		? 'Illegal'
 		: user.nik )
 }
+
+export const VALIDATION_CP_AKUN = (data) =>{
+	return !(data.nik!==''&&data.name!=='')
+}
+export const VALIDATION_CP_GAJI = (data) =>{
+	return !(data.gaji!=='')
+}
+export const VALIDATION_BRG = (exist,new_data,data) =>{
+	return new_data?!(data.id!==''&&data.nama_barang!==''&&data.desc!==''&&data.img!==null&&!exist):!(data.id!==''&&data.nama_barang!==''&&data.desc!==''&&data.img!==null)
+}
+export const VALIDATION_BRG_CABANG = (data) =>{
+	return !(data.stok!==''&&data.harga!=='')
+}
+export const VALIDATION_PENGELUARAN = (data) =>{
+	return !(data.pembelian!==''&&data.cabang!==''&&data.qty!==''&&data.satuan!==''&&data.harga!==''&&data.jenis_pembelian!=='')
+}

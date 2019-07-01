@@ -3,7 +3,7 @@ import EditPopup from "../../editpopup/editpopup";
 import DropdownCabang from "./dropdown_cabang";
 import { Form, Input, Dropdown } from 'semantic-ui-react';
 import { UserRole } from '../../config';
-import { UANG } from '../../component/func_lib';
+import { UANG, VALIDATION_CP_GAJI } from '../../component/func_lib';
 import { LIST_CABANG } from '../../../firebase/firebaseREST';
 class GajiEdit extends Component {
 	state = {
@@ -55,14 +55,14 @@ class GajiEdit extends Component {
 				</Form.Field>
 				<Form.Field>
 					<label>Gaji</label>
-					<Input placeholder='Gaji' name='selected_gaji' value={_data.gaji} onChange={handleInputChange} label={{
+					<Input type='number'  placeholder='Gaji' name='selected_gaji' value={_data.gaji} onChange={handleInputChange} label={{
 						tag: true,
 						content: UANG( _data.gaji )
 					}} labelPosition='right'/>
 				</Form.Field>
 			</Form>
 		);
-		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent}/> )
+		return ( <EditPopup _hidedelete={_new_data} _delete={_delete} _onSave={_onSave} _placeholder={_placeholder} _close={_close} _keydelete={_keydelete} _headername={_headername} _open={_open} _formcontent={FormContent} _validation={VALIDATION_CP_GAJI(_data)}/> )
 	}
 }
 export default GajiEdit;
