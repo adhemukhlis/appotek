@@ -5,7 +5,7 @@ import PengeluaranEdit from "./pengeluaran_edit";
 import TablePengeluaran from "./pengeluaran_table";
 import { PanesHeader, PanelContainer } from '../../style';
 import { firebaseRef_PENGELUARAN, TIMESTAMP, PENGELUARAN_ADD, PENGELUARAN_EDIT, PENGELUARAN_DELETE } from '../../../firebase/firebaseRef';
-import { ShortDate } from '../../component/func_lib';
+import { DateToISO } from '../../component/func_lib';
 class Pengeluaran extends Component {
 	state = {
 		operasional: [],
@@ -17,20 +17,47 @@ class Pengeluaran extends Component {
 		selected_cabang: null,
 		selected_satuan: null,
 		new_data: null,
-		search: ""
+		search: "",
+		tahun: "",
+		bulan: 0,
+		filter: true
 	};
-	componentWillMount( ) {
-		firebaseRef_PENGELUARAN.on('value', snap => {
+	LoadAll = ( ) => {
+		firebaseRef_PENGELUARAN( false, false ).on('value', snap => {
 			let tmp = [ ];
 			snap.forEach(shot => {
 				tmp.push({
 					id: shot.key,
 					...shot.val( )
-				});
-				console.log(ShortDate( shot.val( ).datetime ))
+				})
 			});
 			this.setState({ operasional: tmp })
 		})
+	}
+	LoadFilter = ( ) => {
+		if ( this.state.tahun !== "" ) {
+			firebaseRef_PENGELUARAN(DateToISO( parseInt( this.state.tahun ), this.state.bulan === 0
+				? 1
+				: this.state.bulan, 1 ), DateToISO( this.state.bulan === 0
+				? parseInt( this.state.tahun ) + 1
+				: parseInt( this.state.tahun ), this.state.bulan === 0
+				? 1
+				: this.state.bulan + 1, 1 )).on('value', snap => {
+				let tmp = [ ];
+				snap.forEach(shot => {
+					tmp.push({
+						id: shot.key,
+						...shot.val( )
+					})
+				});
+				this.setState({ operasional: tmp })
+			})
+		} else {
+			this.LoadAll( )
+		}
+	}
+	componentWillMount( ) {
+		this.LoadAll( )
 	}
 	update = ( ) => {
 		const content = {
@@ -39,8 +66,8 @@ class Pengeluaran extends Component {
 			satuan: this.state.selected_satuan,
 			cabang: this.state.selected_cabang,
 			datetime: TIMESTAMP,
-			qty: parseInt(this.state.selected_qty),
-			harga: parseInt(this.state.selected_harga)
+			qty: parseInt( this.state.selected_qty ),
+			harga: parseInt( this.state.selected_harga )
 		};
 		if ( this.state.new_data ) {
 			PENGELUARAN_ADD( content )
@@ -87,8 +114,8 @@ class Pengeluaran extends Component {
 	};
 	close = ( ) => this.setState({ open: false });
 	render( ) {
-		const { operasional, search, new_data } = this.state;
-		const { validation_kc} =this.props
+		const { operasional, search, new_data, tahun } = this.state;
+		const { validation_kc } = this.props;
 		const searchOptionTable = {
 			type: 'includes',
 			value: search
@@ -106,7 +133,7 @@ class Pengeluaran extends Component {
 					satuan: this.state.selected_satuan
 				}}/>
 				<Header style={PanesHeader} as='h1'>Data Pengeluaran</Header>
-				<TablePengeluaran _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange}/>
+				<TablePengeluaran _data={searchedTableData} _show={this.show} _search={search} handleInputChange={this.handleInputChange} handleDropDownChange={this.handleDropDown} _tahun={tahun} _applyfilter={this.LoadFilter}/>
 			</div>
 		)
 	}

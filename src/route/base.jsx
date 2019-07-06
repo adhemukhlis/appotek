@@ -10,7 +10,7 @@ import PageControlPanel from "../page/controlpanel/controlpanel";
 import Scanner from "../page/scanner/scanner";
 import { UserRole, Path } from "../page/config";
 import SideBar from "../page/component/sidebar";
-import { delSession, getSession } from '../page/component/func_lib';
+import { delSession, getSession, DateToISO } from '../page/component/func_lib';
 class App extends Component {
 	state = {
 		loggedAs: null,
@@ -20,6 +20,7 @@ class App extends Component {
 		nik: null
 	};
 	componentWillMount( ) {
+		DateToISO()
 		const sessionData = getSession( 'google' );
 		if ( sessionData !== null ) {
 			console.log( 'yes' );

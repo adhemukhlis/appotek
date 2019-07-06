@@ -25,7 +25,7 @@ class Barang extends Component {
 	addToChart = ( ) => {
 		const item = {
 			id: this.props.barang.id,
-			item: this.props.nama_barang,
+			item: this.props.barang.nama_barang,
 			jumlah: this.state.jumlahBeli,
 			harga: this.props.barang.harga,
 			stok: this.props.barang.stok,

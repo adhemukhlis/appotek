@@ -111,8 +111,8 @@ class Transaksi extends Component {
 		CABANG_BARANG_EDIT( content.id, this.props.userdata.cabang, content )
 	}
 	addToCart = ( item ) => {
-		console.log( item.id );
-		console.log(this.state.pembelian.id.includes( item.id ));
+		// console.log( item.id );
+		// console.log(this.state.pembelian.id.includes( item.id ));
 		let TMP_cart = this.state.pembelian;
 		if (this.state.pembelian.id.includes( item.id )) {
 			console.log(this.state.pembelian.id.indexOf( item.id ));

@@ -1,5 +1,14 @@
 import moment from "moment";
 import { UserRole } from "../config";
+export const DateToISO = (thn, bln, tgl)=>{
+	//year, month, day, hours, minutes and seconds
+	
+	// const DateValDUMMY = new Date(2017, 9-1, 0, 0, 0, 0).getTime()
+	// console.log(DateValDUMMY,moment( DateValDUMMY ).format( "DD/MM/YYYY" ));
+	// console.log(moment( 1562010633323 ).format( "DD/MM/YYYY" ));
+	const DateVal = new Date(thn, bln-1, tgl, 0, 0, 0).getTime()
+	return DateVal
+} 
 export const ShortDate = ( dateVal ) => {
 	return moment( dateVal ).format( "DD/MM/YYYY" )
 }

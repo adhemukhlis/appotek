@@ -26,7 +26,7 @@ export const firebaseRef_CABANG = rootRef.child( 'cabang' );
 export const firebaseRef_OPERASIONAL = rootRef
 	.child( 'pengeluaran' )
 	.child( 'operasional' );
-export const firebaseRef_PENGELUARAN = rootRef.child( 'pengeluaran' );
+export const firebaseRef_PENGELUARAN =(start,end)=> (!start&&!end)?rootRef.child( 'pengeluaran' ): rootRef.child( 'pengeluaran' ).orderByChild('datetime').startAt(start).endAt(end);
 export const firebaseRef_CABANG_BARANG = ( key ) => rootRef
 	.child( 'cabang-barang' )
 	.child( key );
