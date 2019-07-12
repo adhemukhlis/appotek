@@ -15,7 +15,7 @@ class DataTransaksiRow extends Component {
 				<Table.Cell>{ShortDate( data.datetime )}</Table.Cell>
 				<Table.Cell>{data.kasir}</Table.Cell>{show
 					? <TransItem transaksi={data.paymentcode}/>
-					: <Table.Cell textAlign='center' colspan='4'>
+					: <Table.Cell textAlign='center' colSpan='4'>
 						<Button onClick={( ) => this.setState({
 							show: !show
 						})}>Show detail</Button>

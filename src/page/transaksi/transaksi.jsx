@@ -171,7 +171,7 @@ class Transaksi extends Component {
 	}
 	open = ( ) => {
 		const date = new Date( ).getTime( );
-		const paycode = firebaseRef_TRANSAKSI
+		const paycode = firebaseRef_TRANSAKSI.child(this.props.userdata.cabang)
 			.push( )
 			.key;
 		this.setState({ fulldate: date, paymentcode: paycode, modalOpen: true })
@@ -213,7 +213,7 @@ class Transaksi extends Component {
 			.pembelian
 			.id
 			.map(( data, i ) => this.UpdateData( i ));
-		firebaseRef_TRANSAKSI
+		firebaseRef_TRANSAKSI.child(this.props.userdata.cabang)
 			.child( payment.paymentcode )
 			.set( payment );
 		this.handleClose( );

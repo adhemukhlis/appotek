@@ -43,6 +43,7 @@ class Login extends Component {
 					<GoogleLogin theme='dark' clientId="759340461501-u4bk7hcjlqnke6nfqg4gp404lhdsd7bm.apps.googleusercontent.com" onSuccess={this.responseGoogle} onFailure={this.errorLogin}>
 						<b>Login with Google</b>
 					</GoogleLogin>
+					<small>v.19.07.12</small>
 				</div>
 			</div>
 		)

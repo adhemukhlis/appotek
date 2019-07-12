@@ -18,7 +18,7 @@ export const rootRefStore = firebase
 	.ref( "images" );
 export const TIMESTAMP = firebase.database.ServerValue.TIMESTAMP;
 export const firebaseRef_USER = rootRef.child( 'user' );
-export const firebaseRef_TRANSAKSI = rootRef.child( 'transaksi' );
+export const firebaseRef_TRANSAKSI= rootRef.child( 'transaksi' );
 export const firebaseRef_TRANSAKSI_ITEM = rootRef.child( 'transaksi_item' );
 export const firebaseRef_SEARCH = rootRef.child( 'search' );
 export const firebaseRef_GAJI = rootRef.child( 'gaji' );
@@ -26,15 +26,27 @@ export const firebaseRef_CABANG = rootRef.child( 'cabang' );
 export const firebaseRef_OPERASIONAL = rootRef
 	.child( 'pengeluaran' )
 	.child( 'operasional' );
-export const firebaseRef_PENGELUARAN =(start,end)=> (!start&&!end)?rootRef.child( 'pengeluaran' ): rootRef.child( 'pengeluaran' ).orderByChild('datetime').startAt(start).endAt(end);
+export const firebaseRef_PENGELUARAN = ( start, end ) => ( !start && !end )
+	? rootRef.child( 'pengeluaran' )
+	: rootRef
+		.child( 'pengeluaran' )
+		.orderByChild( 'datetime' )
+		.startAt( start )
+		.endAt( end );
 export const firebaseRef_CABANG_BARANG = ( key ) => rootRef
 	.child( 'cabang-barang' )
 	.child( key );
 export const firebaseRef_BARANG = rootRef.child( 'barang' );
 export const firebaseRef_setUSER = ( googleid ) => firebaseRef_USER.child( googleid );
-export const firebaseRef_getTRANSAKSI_CABANG = ( cabang ) => firebaseRef_TRANSAKSI
-	.orderByChild( 'cabang' )
-	.equalTo( cabang );
+// export const firebaseRef_getTRANSAKSI_CABANG = ( cabang ) => firebaseRef_TRANSAKSI
+// 	.orderByChild( 'cabang' )
+// 	.equalTo( cabang );
+export const firebaseRef_getTRANSAKSI_CABANG = ( cabang, start, end ) => ( !start && !end )
+? firebaseRef_TRANSAKSI.child( cabang )
+: firebaseRef_TRANSAKSI.child( cabang )
+	.orderByChild( 'datetime' )
+	.startAt( start )
+	.endAt( end );
 export const AKUN_SIGNUP = ( profileObj ) => {
 	firebaseRef_setUSER( profileObj.googleId ).set({
 		...profileObj,

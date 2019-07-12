@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
-import { Table, Input } from 'semantic-ui-react';
+import { Table, Input, Button, Select } from 'semantic-ui-react';
 import DataTransaksiRow from "./data_transaksi_cabang_row";
+import {MonthOptions} from "../../config";
 class DataTransaksiTable extends Component {
 	render( ) {
-		const { _data, _show, handleInputChange, _search } = this.props;
+		const { _data, _show, handleInputChange,handleDropDownChange,handleYearFilterChange, _search, _tahun, _applyfilter } = this.props;
+		
 		return (
 			<Table celled selectable padded unstackable structured>
 				<Table.Header>
 					<Table.Row >
 						<Table.HeaderCell colSpan='10'>
 							<Input floated="left" icon='search' placeholder='Search' name='search' value={_search} onChange={handleInputChange}/>
+							<Input style={{
+								paddingLeft: 10
+							}} type='text' type='number'placeholder='tahun' name='tahun' value={_tahun} onChange={handleYearFilterChange} action>
+								<input/>
+								<Select onChange={handleDropDownChange} name='bulan' compact options={MonthOptions} defaultValue={0}/>
+								<Button type='submit' onClick={()=>_applyfilter()}>Apply</Button>
+							</Input> 
 						</Table.HeaderCell>
 					</Table.Row>
 					<Table.Row>

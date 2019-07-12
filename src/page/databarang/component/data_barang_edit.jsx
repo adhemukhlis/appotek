@@ -52,7 +52,7 @@ class DataBarangEdit extends Component {
 				</Form.Field>
 				<Form.Field error={_exist_data && _new_data}>
 					<label>kode</label>
-					<Input name='new_id' onChange={handleInputChange} readOnly={!_new_data} value={_data.id}/>
+					<Input type='number' name='new_id' onChange={handleInputChange} readOnly={!_new_data} value={_data.id}/>
 				</Form.Field>
 				<Form.Field>
 					<label>Nama Barang</label>

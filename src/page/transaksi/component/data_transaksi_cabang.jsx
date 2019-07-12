@@ -54,7 +54,7 @@ class DataTransaksiCabang extends Component {
 	// };
 	// close = ( ) => this.setState({ open: false });
 	render( ) {
-		const { nama_cabang, data_barang } = this.props;
+		const { nama_cabang, data_barang, handleDropDown,handleInputChange, _applyfilter, _tahun } = this.props;
 		const { search } = this.state;
 		const searchOptionTable = {
 			type: 'includes',
@@ -70,7 +70,7 @@ class DataTransaksiCabang extends Component {
 					harga: this.state.selected_harga
 				}}/> */}
 				<Header style={PanesHeader} as='h1'>{'Data Transaksi Cabang ' + nama_cabang}</Header>
-				<TableDataTransaksi _data={searchedTableData} _search={search} handleInputChange={this.handleInputChange}/>
+				<TableDataTransaksi _data={searchedTableData} _search={search} handleInputChange={this.handleInputChange} handleYearFilterChange={handleInputChange} handleDropDownChange={handleDropDown}_tahun={_tahun} _applyfilter={_applyfilter} />
 			</div>
 		)
 	}
